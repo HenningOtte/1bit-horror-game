@@ -4,14 +4,16 @@ class MoveableObject {
     img;
     height = 108;
     width = 72;
-    imageCache = {};
+    imageCache = {};    
+    currentImage = 0;
+    speed = 0.3;
     velocityX = 0;
     right = false;
 
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
-    }   
+    }
 
     loadImages(arr) {
         arr.forEach((path) => {
@@ -19,6 +21,12 @@ class MoveableObject {
             img.src = path;
             this.imageCache[path] = img;
         });
+    }
+
+    moveLeft() {
+        setInterval(() => {
+            this.x -= this.speed;
+        }, 1000 / 60)
     }
 
     //////////////////////////////////////
@@ -39,9 +47,5 @@ class MoveableObject {
         } else {
             this.velocityX = 0;
         }
-    }
-
-    moveLeft() {
-        console.log("moveLeft");
     }
 }
