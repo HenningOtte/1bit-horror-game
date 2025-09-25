@@ -1,29 +1,49 @@
 let canvas;
 let ctx;
 let world;
-let speed = 0;
+let keyboard = new Keyboard();
 
 function init() {
     canvas = document.getElementById('canvas');
-    world = new World(canvas);
+    world = new World(canvas, keyboard);
 }
 
-document.addEventListener('keydown', (event) => {
-    const key = event.key; // "ArrowRight", "ArrowLeft", "ArrowUp", or "ArrowDown"
-
-    switch (key) {
-        case "ArrowRight":
-            world.character.right = true;
+window.addEventListener('keydown', (e) => {
+    switch (e.keyCode) {
+        case 37:
+            keyboard.LEFT = true;
+            break;
+        case 39:
+            keyboard.RIGHT = true;
+            break;
+        case 38:
+            keyboard.UP = true;
+            break;
+        case 40:
+            keyboard.DOWN = true;
+            break;
+        case 32:
+            keyboard.SPACE = true;
             break;
     }
 });
 
-document.addEventListener('keyup', (event) => {
-    const key = event.key; // "ArrowRight", "ArrowLeft", "ArrowUp", or "ArrowDown"
-
-    switch (key) {
-        case "ArrowRight":
-            world.character.right = false;
+window.addEventListener('keyup', (e) => {
+    switch (e.keyCode) {
+        case 37:
+            keyboard.LEFT = false;
+            break;
+        case 39:
+            keyboard.RIGHT = false;
+            break;
+        case 38:
+            keyboard.UP = false;
+            break;
+        case 40:
+            keyboard.DOWN = false;
+            break;
+        case 32:
+            keyboard.SPACE = false;
             break;
     }
 });

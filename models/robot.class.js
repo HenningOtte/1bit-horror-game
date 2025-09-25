@@ -1,4 +1,4 @@
-class Rat extends MoveableObject {
+class Robot extends MoveableObject {
     y = 303
     height = 27*3;
     width = 24*3;

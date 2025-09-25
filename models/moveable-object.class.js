@@ -7,8 +7,8 @@ class MoveableObject {
     imageCache = {};    
     currentImage = 0;
     speed = 0.3;
+    otherDirection = false;
     velocityX = 0;
-    right = false;
 
     loadImage(path) {
         this.img = new Image();
@@ -23,6 +23,10 @@ class MoveableObject {
         });
     }
 
+    draw(ctx) {
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    }
+
     moveLeft() {
         setInterval(() => {
             this.x -= this.speed;
@@ -31,21 +35,21 @@ class MoveableObject {
 
     //////////////////////////////////////
 
-    moveRight() {
-        if (this.velocityX < 5) {
-            this.velocityX = (this.velocityX * 1.05) + 0.08;
-            this.x += this.velocityX;
-        } else {
-            this.x += this.velocityX;
-        }
-    }
+    // moveRight() {
+    //     if (this.velocityX < 5) {
+    //         this.velocityX = (this.velocityX * 1.05) + 0.08;
+    //         this.x += this.velocityX;
+    //     } else {
+    //         this.x += this.velocityX;
+    //     }
+    // }
 
-    stopMoveRight() {
-        if (this.velocityX > 0) {
-            this.velocityX = this.velocityX - 0.3;
-            this.x += this.velocityX;
-        } else {
-            this.velocityX = 0;
-        }
-    }
+    // stopMoveRight() {
+    //     if (this.velocityX > 0) {
+    //         this.velocityX = this.velocityX - 0.3;
+    //         this.x += this.velocityX;
+    //     } else {
+    //         this.velocityX = 0;
+    //     }
+    // }
 }
