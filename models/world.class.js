@@ -1,16 +1,8 @@
 class World {
     character = new Character();
-    enemies = [
-        new Robot(),
-        new Robot(),
-        new Robot(),
-    ];
-    clouds = [
-        new Cloud(),
-        new Cloud(),
-        new Cloud(),
-    ];
-    backgroundObjects = [];
+    enemies = level1.enemies;
+    clouds = level1.clouds;
+    backgroundObjects = level1.backgroundObjects;
     canvas;
     ctx;
     keyboard;
@@ -21,25 +13,9 @@ class World {
         this.ctx.imageSmoothingEnabled = false;
         this.canvas = canvas;
         this.keyboard = keyboard;
-        this.createBackgorund();
         this.draw();
         this.setWorld();
-    }
-
-    createBackgorund() {
-        let x = -719;
-        let imgNumber = 1;
-        let maxImages = 2;
-        for (let i = 0; i < 5; i++) {
-            this.backgroundObjects.push(new BackgroundObject(`../img/5_background/layers/air.png`, x));
-            this.backgroundObjects.push(new BackgroundObject(`../img/5_background/layers/3_third_Layer/${imgNumber}.png`, x));
-            this.backgroundObjects.push(new BackgroundObject(`../img/5_background/layers/2_second_Layer/${imgNumber}.png`, x));
-            this.backgroundObjects.push(new BackgroundObject(`../img/5_background/layers/1_first_Layer/${imgNumber}.png`, x));
-            x += 719;
-            imgNumber++;
-            if (imgNumber > maxImages) imgNumber = 1;
-        }
-    }
+    }   
 
     setWorld() {
         this.character.world = this;
