@@ -2,7 +2,8 @@ const level1 = new Level(
     [
         new Robot(),
         new Robot(),
-        new Robot(),
+        new Robot(),        
+        new Endboss()
     ],
     [
         new Cloud(),
