@@ -1,7 +1,7 @@
 class Robot extends MoveableObject {
     y = 303
-    height = 27*3;
-    width = 24*3;
+    height = 27 * 3;
+    width = 24 * 3;
     IMAGES_WALKING = [
         '../img/3_enemies_robot/1_walk/1.png',
         '../img/3_enemies_robot/1_walk/2.png',
@@ -21,9 +21,11 @@ class Robot extends MoveableObject {
     }
 
     animate() {
-        this.moveLeft();
+        setInterval(() => {
+            this.moveLeft();
+        }, 1000 / 60)
         setInterval(() => {
             this.playAnimation(this.IMAGES_WALKING);
-        }, 100);
+        }, 60);
     }
 }
