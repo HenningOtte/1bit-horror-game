@@ -1,7 +1,7 @@
 class Character extends MoveableObject {
-    height = 35 * 3;
-    width = 40 * 3;
-    y = 279;
+    height = 72 * 2;
+    width = 64 * 2;
+    y = 244;
     speed = 10;
     offset = {
         top: 5,
@@ -25,8 +25,7 @@ class Character extends MoveableObject {
     ];
     IMAGES_HURT = [
         '../img/2_character_jimmy/4_hurt/1.png',
-        '../img/2_character_jimmy/4_hurt/2.png',
-        '../img/2_character_jimmy/4_hurt/3.png'
+        '../img/2_character_jimmy/4_hurt/2.png'
     ];
     IMAGES_DEAD = [
         '../img/2_character_jimmy/5_dead/1.png',
@@ -63,7 +62,6 @@ class Character extends MoveableObject {
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.jump();
             }
-
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
 

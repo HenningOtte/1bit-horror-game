@@ -1,5 +1,7 @@
 class World {
     character = new Character();
+    statusHealth = new StatusBar();
+    throwableObjects = [];
     level = level1;
     canvas;
     ctx;
@@ -13,22 +15,34 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.checkCollisions();
+        this.run();
     }
 
     setWorld() {
         this.character.world = this;
     }
 
-    checkCollisions() {
+    run() {
         setInterval(() => {
-            this.level.enemies.forEach((enemy) => {
-                if (this.character.isColliding(enemy)) {
-                    this.character.hit();
-                    // console.log('Collision with Character, energy: ', this.character.energy);
-                }
-            });
+            this.checkCollisions();
+            this.chechTrowObjects();
         }, 200);
+    }
+
+    chechTrowObjects() {
+        if(this.keyboard.D) {
+            let grenade = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+            this.throwableObjects.push(grenade);
+        }
+    }
+
+    checkCollisions() {
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                this.character.hit();
+                this.statusHealth.setPercentage(this.character.energy);
+            }
+        });
     }
 
     draw() {
@@ -38,8 +52,17 @@ class World {
 
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
+
+        this.ctx.translate(-this.camera_x, 0);
+        // ----- Space for fixed objects -----
+        this.addToMap(this.statusHealth);
+        this.ctx.translate(this.camera_x, 0);
+
         this.addToMap(this.character);
+        this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.enemies);
+
+        this.addObjectsToMap(this.throwableObjects);
 
         this.ctx.translate(-this.camera_x, 0);
 
@@ -62,7 +85,7 @@ class World {
         }
 
         mo.draw(this.ctx);
-        mo.drawFrame(this.ctx, this.x, this.y, this.width, this.height)
+        // mo.drawFrame(this.ctx, this.x, this.y, this.width, this.height)
 
         if (mo.otherDirection) {
             this.flipImageBack(mo)

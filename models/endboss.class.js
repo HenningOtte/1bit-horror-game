@@ -1,19 +1,11 @@
 class Endboss extends MoveableObject {
-    y = 282;
+    y = 195;
     x = 2200;
-    height = 102;
-    width = 90;
+    height = 96*2;
+    width = 84*2;
 
     IMAGES_WALKING = [
-        'img/4_enemie_boss_neuron/2_alert/G1.png',
-        'img/4_enemie_boss_neuron/2_alert/G2.png',
-        'img/4_enemie_boss_neuron/2_alert/G3.png',
-        'img/4_enemie_boss_neuron/2_alert/G4.png',
-        'img/4_enemie_boss_neuron/2_alert/G5.png',
-        'img/4_enemie_boss_neuron/2_alert/G6.png',
-        'img/4_enemie_boss_neuron/2_alert/G7.png',
-        'img/4_enemie_boss_neuron/2_alert/G8.png',
-        'img/4_enemie_boss_neuron/2_alert/G9.png',
+        '../img/4_enemie_boss_neuron/1_walk/G1.png'
     ];
         
     constructor () {
