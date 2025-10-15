@@ -23,7 +23,7 @@ class MoveableObject extends DrawableObject {
 
 
     hit() {
-        this.energy -= 5;
+        this.energy -= 1;
         if (this.energy < 0) {
             this.energy = 0;
         } else {
@@ -46,11 +46,10 @@ class MoveableObject extends DrawableObject {
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
+            } else {
+                this.y = 244;
+                this.speedY = 0;
             }
-            // if (this.isAboveGround() >= 244) {
-            //     this.y = 244;
-            //     this.speedY = 0;
-            // };
         }, 1000 / 30);
     }
 
@@ -69,6 +68,12 @@ class MoveableObject extends DrawableObject {
             this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
     }
 
+    isJumpingOn(mo) {
+        return this.y + this.height >= mo.y &&
+            this.y + this.height <= mo.y + 20 &&
+            this.speedY < 0;
+    }
+
     moveRight() {
         this.x += this.speed;
     }
@@ -77,11 +82,19 @@ class MoveableObject extends DrawableObject {
         this.x -= this.speed;
     }
 
-    playAnimation(imgs) {
+    playAnimation(imgs, loop = true) {
         let i = this.currentImage % imgs.length;
         let path = imgs[i];
         this.img = this.imageCache[path];
         this.currentImage++;
+
+        if (this.currentImage >= imgs.length) {
+            if (loop) {
+                this.currentImage = 0;
+            } else {
+                this.currentImage = imgs.length - 1;
+            }
+        }
     }
 
     jump() {

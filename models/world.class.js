@@ -26,21 +26,25 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.chechTrowObjects();
-        }, 200);
+        }, 1000 / 30);
     }
 
     chechTrowObjects() {
-        if(this.keyboard.D) {
+        if (this.keyboard.D) {
             let grenade = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(grenade);
         }
     }
 
     checkCollisions() {
-        this.level.enemies.forEach((enemy) => {
+        this.level.enemies.forEach((enemy, index) => {            
             if (this.character.isColliding(enemy)) {
-                this.character.hit();
-                this.statusHealth.setPercentage(this.character.energy);
+                if (this.character.isJumpingOn(enemy)) {
+                    this.level.enemies.splice(index, 1);
+                } else {
+                    this.character.hit();
+                    this.statusHealth.setPercentage(this.character.energy);
+                }
             }
         });
     }

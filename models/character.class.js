@@ -34,6 +34,13 @@ class Character extends MoveableObject {
         '../img/2_character_jimmy/5_dead/4.png',
         '../img/2_character_jimmy/5_dead/5.png'
     ];
+    IMAGES_IDLE = [
+        'img/2_character_jimmy/1_idle/1.png',
+        'img/2_character_jimmy/1_idle/2.png',
+        'img/2_character_jimmy/1_idle/3.png',
+        'img/2_character_jimmy/1_idle/4.png',
+        'img/2_character_jimmy/1_idle/5.png',
+    ];
     world;
 
     constructor() {
@@ -43,23 +50,33 @@ class Character extends MoveableObject {
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
+        this.loadImages(this.IMAGES_IDLE);
         this.applyGravity();
         this.animate();
     }
 
     animate() {
         setInterval(() => {
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+            if (this.world.keyboard.RIGHT &&
+                this.x < this.world.level.level_end_x &&
+                !this.isDead()
+            ) {
                 this.moveRight();
                 this.otherDirection = false;
             }
 
-            if (this.world.keyboard.LEFT && this.x > 0) {
+            if (this.world.keyboard.LEFT &&
+                this.x > 0 &&
+                !this.isDead()
+            ) {
                 this.moveLeft();
                 this.otherDirection = true;
             }
 
-            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+            if (this.world.keyboard.SPACE &&
+                !this.isAboveGround() &&
+                !this.isDead()
+            ) {
                 this.jump();
             }
             this.world.camera_x = -this.x + 100;
@@ -67,7 +84,7 @@ class Character extends MoveableObject {
 
         setInterval(() => {
             if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD);
+                this.playAnimation(this.IMAGES_DEAD, false);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isAboveGround()) {
@@ -75,6 +92,8 @@ class Character extends MoveableObject {
             } else {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                     this.playAnimation(this.IMAGES_WALKING);
+                } else {
+                    this.playAnimation(this.IMAGES_IDLE);
                 }
             }
         }, 100);
