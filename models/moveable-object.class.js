@@ -20,17 +20,13 @@ class MoveableObject extends DrawableObject {
     lastHit = 0;
     lastThrow = 0;
     ammo = 5;
-
-    // velocityX = 0;
+    attack = false;
+    moving = true;
 
 
     hit(damage) {
         this.energy -= damage;
-        if (this.energy < 0) {
-            this.energy = 0;
-        } else {
-            this.lastHit = new Date().getTime();
-        }
+        this.energy < 0 ? this.energy = 0 : this.lastHit = new Date().getTime();
     }
 
     isHurt() {
@@ -112,24 +108,4 @@ class MoveableObject extends DrawableObject {
     jump() {
         this.speedY = 30;
     }
-
-    //////////////////////////////////////
-
-    // moveRight() {
-    //     if (this.velocityX < 5) {
-    //         this.velocityX = (this.velocityX * 1.05) + 0.08;
-    //         this.x += this.velocityX;
-    //     } else {
-    //         this.x += this.velocityX;
-    //     }
-    // }
-
-    // stopMoveRight() {
-    //     if (this.velocityX > 0) {
-    //         this.velocityX = this.velocityX - 0.3;
-    //         this.x += this.velocityX;
-    //     } else {
-    //         this.velocityX = 0;
-    //     }
-    // }
 }

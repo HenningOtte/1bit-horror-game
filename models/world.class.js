@@ -44,14 +44,52 @@ class World {
         this.checkCoinCollisions();
         this.checkFireballItemCollisions();
         this.checkFireballCollisions();
+        this.updateEndbossBehavior();
     }
 
-    checkFireballCollisions() {        
+    getEndboss() {
+        return this.level.enemies.find(enemy => enemy instanceof Endboss);
+    }
+
+    updateEndbossBehavior() {
+        const boss = this.getEndboss();
+
+        if (!boss || !this.character) return;
+
+        if (boss.isDead() || this.character.isDead()) {
+            boss.attack = false;
+            boss.moving = false;
+            return;
+        }
+
+        if (boss.isColliding(this.character)) {
+            boss.attack = true;
+            boss.moving = false;
+            return;
+        }
+
+        const directionX = Math.sign(this.character.x - boss.x);
+
+        if (directionX < 0) {
+            boss.moveLeft();
+            boss.otherDirection = false;
+        } else if (directionX > 0) {
+            boss.moveRight();
+            boss.otherDirection = true;
+        }
+
+        boss.attack = false;
+        boss.moving = directionX !== 0;
+    }
+
+    checkFireballCollisions() {
+        const boss = this.getEndboss();
+        if (!boss) return;
+
         this.throwableObjects.forEach((fireball, index) => {
-            if (this.level.enemies[0].isColliding(fireball)) {
+            if (boss.isColliding(fireball)) {
                 this.throwableObjects.splice(index, 1);
-                this.level.enemies[0].hit(20);
-                console.log(this.level.enemies[0].energy);                
+                boss.hit(20);
             }
         });
     }
@@ -71,6 +109,7 @@ class World {
                 if (this.character.isJumpingOn(enemy)) {
                     this.level.enemies.splice(index, 1);
                 } else {
+                    if (enemy.isDead()) return;
                     this.character.hit(1);
                     this.statusHealth.setPercentage(this.character.energy);
                 }
@@ -129,7 +168,12 @@ class World {
         }
 
         mo.draw(this.ctx);
-        mo.drawFrame(this.ctx, this.x, this.y, this.width, this.height)
+        try {
+            mo.drawFrame(this.ctx, this.x, this.y, this.width, this.height)
+
+        } catch (error) {
+            console.error(error);
+        }
 
         if (mo.otherDirection) {
             this.flipImageBack(mo)
