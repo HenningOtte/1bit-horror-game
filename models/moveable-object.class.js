@@ -18,12 +18,14 @@ class MoveableObject extends DrawableObject {
     };
     energy = 100;
     lastHit = 0;
+    lastThrow = 0;
+    ammo = 5;
 
-    velocityX = 0;
+    // velocityX = 0;
 
 
-    hit() {
-        this.energy -= 1;
+    hit(damage) {
+        this.energy -= damage;
         if (this.energy < 0) {
             this.energy = 0;
         } else {
@@ -39,6 +41,16 @@ class MoveableObject extends DrawableObject {
 
     isDead() {
         return this.energy == 0;
+    }
+
+    recordThrow() {
+        this.lastThrow = new Date().getTime();
+    }
+
+    canThrow() {
+        let timepassed = new Date().getTime() - this.lastThrow;
+        timepassed = timepassed / 1000;
+        return timepassed > 0.5 && this.ammo > 0;
     }
 
     applyGravity() {

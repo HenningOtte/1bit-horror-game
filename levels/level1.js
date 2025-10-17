@@ -1,8 +1,8 @@
 const level1 = new Level(
     [
-        new Skeleton(),
-        new Skeleton(),
-        new Skeleton(),
+        // new Skeleton(),
+        // new Skeleton(),
+        // new Skeleton(),
         new Endboss()
     ],
     [
@@ -37,8 +37,24 @@ const level1 = new Level(
         new BackgroundObject(`../img/5_background/layers/1_first_Layer/1.png`, 719 * 3),
     ],
     [
-        new Coin(),
-        new Coin(),
-        new Coin()
+        // new Coin(),
+        // new Coin(),
+        // new Coin(),
+        // new Coin(),
+        // new Coin(),
+        // new Coin(),
+        // new Coin(),
+        // new Coin(),
+        // new Coin(),
+        // new Coin()
+    ],
+    [
+        new FireballItem(),
+        new FireballItem(),
+        new FireballItem(),
+        new FireballItem(),
+        new FireballItem(),
+        new FireballItem(),
+        new FireballItem()
     ]
 );

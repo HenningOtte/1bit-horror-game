@@ -2,6 +2,12 @@ class Skeleton extends MoveableObject {
     y = 244
     height = 78 * 2;
     width = 58 * 2;
+    offset = {
+        top: 10,
+        left: 20,
+        right: 20,
+        bottom: 10
+    };
     IMAGES_WALKING = [
         '../img/3_enemie_skeleton/1_walk/1.png',
         '../img/3_enemie_skeleton/1_walk/2.png',

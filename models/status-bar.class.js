@@ -1,27 +1,44 @@
 class StatusBar extends DrawableObject {
-    IMAGES = [
-        'img/7_statusbars/1_statusbar/2_statusbar_health/0.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/20.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/40.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/60.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/80.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/100.png',
-    ];
+    BAR_VARIANTS = {
+        health: [
+            '../img/7_statusbars/1_statusbar/2_statusbar_health/0.png',
+            '../img/7_statusbars/1_statusbar/2_statusbar_health/20.png',
+            '../img/7_statusbars/1_statusbar/2_statusbar_health/40.png',
+            '../img/7_statusbars/1_statusbar/2_statusbar_health/60.png',
+            '../img/7_statusbars/1_statusbar/2_statusbar_health/80.png',
+            '../img/7_statusbars/1_statusbar/2_statusbar_health/100.png',
+        ],
+        coin: [
+            '../img/7_statusbars/1_statusbar/1_statusbar_coin/0.png',
+            '../img/7_statusbars/1_statusbar/1_statusbar_coin/20.png',
+            '../img/7_statusbars/1_statusbar/1_statusbar_coin/40.png',
+            '../img/7_statusbars/1_statusbar/1_statusbar_coin/60.png',
+            '../img/7_statusbars/1_statusbar/1_statusbar_coin/80.png',
+            '../img/7_statusbars/1_statusbar/1_statusbar_coin/100.png'
+        ]
+    };
+    
     width = 49 * 3;
     height = 13 * 3;
     percentage = 100;
-    
-    constructor() {
+
+    constructor(x, y, percent = 100, variant = 'health') {
         super();
-        this.loadImages(this.IMAGES);
-        this.x = 10;
-        this.y = 10
-        this.setPercentage(100);
+        this.x = x;
+        this.y = y;
+        this.variant = variant;
+        this.setVariant();
+        this.setPercentage(percent);
+    }
+
+    setVariant() {
+        let images = this.BAR_VARIANTS[this.variant];
+        this.loadImages(images);
     }
 
     setPercentage(percentage) {
         this.percentage = percentage;
-        let path = this.IMAGES[this.resolveImageIndex()];
+        let path = this.BAR_VARIANTS[this.variant][this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
 

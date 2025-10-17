@@ -39,7 +39,7 @@ class Character extends MoveableObject {
         'img/2_character_jimmy/1_idle/2.png',
         'img/2_character_jimmy/1_idle/3.png',
         'img/2_character_jimmy/1_idle/4.png',
-        'img/2_character_jimmy/1_idle/5.png',
+        'img/2_character_jimmy/1_idle/5.png'
     ];
     world;
 

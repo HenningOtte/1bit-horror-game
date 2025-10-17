@@ -1,6 +1,7 @@
 class World {
     character = new Character();
-    statusHealth = new StatusBar();
+    statusHealth = new StatusBar(10, 10, 100, 'health');
+    statusCoin = new StatusBar(10, 53, 0, 'coin');
     throwableObjects = [];
     level = level1;
     canvas;
@@ -30,21 +31,59 @@ class World {
     }
 
     chechTrowObjects() {
-        if (this.keyboard.D) {
-            let grenade = new ThrowableObject(this.character.x + 100, this.character.y + 100);
-            this.throwableObjects.push(grenade);
+        if (this.keyboard.D && this.character.canThrow()) {
+            let fireball = new ThrowableObject(this.character.x + 100, this.character.y + 50);
+            this.throwableObjects.push(fireball);
+            this.character.recordThrow();
+            this.character.ammo -= 1;
         }
     }
 
     checkCollisions() {
-        this.level.enemies.forEach((enemy, index) => {            
+        this.checkEnemyCollisions();
+        this.checkCoinCollisions();
+        this.checkFireballItemCollisions();
+        this.checkFireballCollisions();
+    }
+
+    checkFireballCollisions() {        
+        this.throwableObjects.forEach((fireball, index) => {
+            if (this.level.enemies[0].isColliding(fireball)) {
+                this.throwableObjects.splice(index, 1);
+                this.level.enemies[0].hit(20);
+                console.log(this.level.enemies[0].energy);                
+            }
+        });
+    }
+
+    checkFireballItemCollisions() {
+        this.level.fireballs.forEach((fireball, index) => {
+            if (this.character.isColliding(fireball)) {
+                this.character.ammo += 1;
+                this.level.fireballs.splice(index, 1);
+            }
+        });
+    }
+
+    checkEnemyCollisions() {
+        this.level.enemies.forEach((enemy, index) => {
             if (this.character.isColliding(enemy)) {
                 if (this.character.isJumpingOn(enemy)) {
                     this.level.enemies.splice(index, 1);
                 } else {
-                    this.character.hit();
+                    this.character.hit(1);
                     this.statusHealth.setPercentage(this.character.energy);
                 }
+            }
+        });
+    }
+
+    checkCoinCollisions() {
+        this.level.coins.forEach((coin, index) => {
+            if (this.character.isColliding(coin)) {
+                this.statusCoin.percentage += 10;
+                this.statusCoin.setPercentage(this.statusCoin.percentage);
+                this.level.coins.splice(index, 1);
             }
         });
     }
@@ -60,12 +99,13 @@ class World {
         this.ctx.translate(-this.camera_x, 0);
         // ----- Space for fixed objects -----
         this.addToMap(this.statusHealth);
+        this.addToMap(this.statusCoin);
         this.ctx.translate(this.camera_x, 0);
 
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.level.fireballs);
         this.addObjectsToMap(this.level.enemies);
-
         this.addObjectsToMap(this.throwableObjects);
 
         this.ctx.translate(-this.camera_x, 0);
@@ -89,7 +129,7 @@ class World {
         }
 
         mo.draw(this.ctx);
-        // mo.drawFrame(this.ctx, this.x, this.y, this.width, this.height)
+        mo.drawFrame(this.ctx, this.x, this.y, this.width, this.height)
 
         if (mo.otherDirection) {
             this.flipImageBack(mo)
