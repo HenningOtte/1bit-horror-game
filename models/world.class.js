@@ -107,6 +107,7 @@ class World {
         this.level.enemies.forEach((enemy, index) => {
             if (this.character.isColliding(enemy)) {
                 if (this.character.isJumpingOn(enemy)) {
+                    this.character.jump(15);
                     this.level.enemies.splice(index, 1);
                 } else {
                     if (enemy.isDead()) return;
@@ -167,9 +168,9 @@ class World {
             this.flipImage(mo);
         }
 
-        mo.draw(this.ctx);
         try {
-            mo.drawFrame(this.ctx, this.x, this.y, this.width, this.height)
+            mo.draw(this.ctx);
+            // mo.drawFrame(this.ctx, this.x, this.y, this.width, this.height)
 
         } catch (error) {
             console.error(error);

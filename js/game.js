@@ -2,9 +2,21 @@ let canvas;
 let ctx;
 let world;
 let keyboard = new Keyboard();
+let gameStarted = false;
+
+const bgMusic = new Audio('./audio/Horror_Music_8bit.mp3');
+bgMusic.loop = true;
+bgMusic.volume = 0.4;
 
 function init() {
     canvas = document.getElementById('canvas');
+}
+
+function startGame() {
+    if (gameStarted) return;
+    gameStarted = true;
+    bgMusic.play();
+
     world = new World(canvas, keyboard);
 }
 

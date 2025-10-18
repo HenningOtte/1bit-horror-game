@@ -105,7 +105,7 @@ class MoveableObject extends DrawableObject {
         }
     }
 
-    jump() {
-        this.speedY = 30;
+    jump(jumpForce = 30) {
+        this.speedY = jumpForce;
     }
 }
