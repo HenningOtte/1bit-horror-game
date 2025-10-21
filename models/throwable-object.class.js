@@ -15,23 +15,22 @@ class ThrowableObject extends MoveableObject {
         '../img/6_fireball/8.png'
     ];
 
-    constructor(x, y) {
+    constructor(x, y, direction) {
         super();
         this.x = x;
         this.y = y;
         this.loadImage('../img/6_fireball/2.png');
         this.loadImages(this.IMAGES_FIREBALL);
-
-        this.throw(x, y);
+        this.throw(x, y, direction);
     }
 
-    throw(x, y) {
+    throw(x, y, direction) {
         this.x = x;
         this.y = y;
         this.speedY = 30;
         this.applyGravity();
         setInterval(() => {
-            this.x += 10;
+            this.x += 10 * direction;
         }, 25);
     }
 

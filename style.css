@@ -1,17 +1,157 @@
+@font-face {
+    font-family: 'Jersey10-Regular';
+    src: url('./fonts/Jersey10-Regular.ttf');
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Jersey10-Regular';
+    font-size: 40px;
+}
+
 body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: hidden;
+}
+
+.frame {
+    top: 64px;
+    position: relative;
+    width: 720px;
+    height: 480px;
+    aspect-ratio: 720 / 480;
+}
+
+.sound-screen-controlls {
+    width: 100%;
+    height: 13%;
+    position: absolute;
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 1%;
+    padding: 2%;
+    z-index: 2;
+}
+
+.controlls {
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    background-color: transparent;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.unmute {
+    background-image: url(./img/1_icons/unmute_invert.png);
+}
+
+.unmute:hover {
+    background-image: url(./img/1_icons/unmute.png);
+}
+
+.mute {
+    background-image: url(./img/1_icons/mute_invert.png);
+}
+
+.mute:hover {
+    background-image: url(./img/1_icons/mute.png);
+}
+
+.resize {
+    background-image: url(./img/1_icons/resize_invert.png);
+}
+
+.resize:hover {
+    background-image: url(./img/1_icons/resize.png);
+}
+
+.menu {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+    z-index: 1;
+    background-image: url(./img/5_background/Startbildschirm.png);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+
+    animation: lightning 14s infinite;
+}
+
+@keyframes lightning {
+    10% {background-image: url('./img/5_background/Startbildschirm.png')}
+    14% {background-image: url('./img/5_background/Startbildschirm_invert.png')}
+    30% {background-image: url('./img/5_background/Startbildschirm.png')}
+    60% {background-image: url('./img/5_background/Startbildschirm.png')}
+    64% {background-image: url('./img/5_background/Startbildschirm_invert.png')}
+    74% {background-image: url('./img/5_background/Startbildschirm.png')}
+    80% {background-image: url('./img/5_background/Startbildschirm_invert.png')}
+    90% {background-image: url('./img/5_background/Startbildschirm.png')}
+}
+
+.btn-menu {
+    height: 12%;
+    width: 25%;
+    text-align: center;
+    font-size: 4.5vh;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: white;
+    background-color: transparent;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.start {
+    margin-top: 12%;
+    background-image: url('./img/1_icons/menu_start_invert.png');
+}
+
+.start:hover {
+    background-image: url('./img/1_icons/menu_start.png');
+}
+
+.controls {
+    background-image: url('./img/1_icons/menu_controls_invert.png');
+}
+
+.controls:hover {
+    background-image: url('./img/1_icons/menu_controls.png');
 }
 
 canvas {
     background-color: #b3afbb;
-    z-index: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: black;
 }
 
-.btn {
-    width: 100px;
-    height: 50px;
-    background-color: red;
-    z-index: 1;
+.hidden {
+    display: none;
+}
+
+@media only screen and (max-height: 760px) {
+    .frame {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-height: 480px) {
+    .frame {
+        height: 100vh;
+    }
 }

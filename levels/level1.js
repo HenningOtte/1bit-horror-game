@@ -1,5 +1,4 @@
 let level1;
-initLevel();
 
 function initLevel() {
     level1 = new Level(
@@ -10,32 +9,42 @@ function initLevel() {
             new Endboss()
         ],
         [
-            new Cloud(),
-            new Cloud(),
-            new Cloud(),
+            new Cloud(130, 32, 0),
+            new Cloud(206, 54, 1),
+            new Cloud(380, 92, 2),
+            new Cloud(130, 32, 0),
+            new Cloud(206, 54, 1),
+            new Cloud(380, 92, 2),
+            new Cloud(130, 32, 0),
+            new Cloud(206, 54, 1),
+            new Cloud(380, 92, 2),
+            new Cloud(130, 32, 0),
+            new Cloud(206, 54, 1),
+            new Cloud(380, 92, 2),
+            new Cloud(130, 32, 0),
+            new Cloud(206, 54, 1),
+            new Cloud(380, 92, 2),
+            new Cloud(130, 32, 0),
+            new Cloud(206, 54, 1),
+            new Cloud(380, 92, 2),
         ],
         [
-            new BackgroundObject(`../img/5_background/layers/air.png`, -719),
             new BackgroundObject(`../img/5_background/layers/3_third_Layer/1.png`, -719),
             new BackgroundObject(`../img/5_background/layers/2_second_Layer/1.png`, -719),
             new BackgroundObject(`../img/5_background/layers/1_first_Layer/2.png`, -719),
 
-            new BackgroundObject(`../img/5_background/layers/air.png`, 0),
             new BackgroundObject(`../img/5_background/layers/3_third_Layer/2.png`, 0),
             new BackgroundObject(`../img/5_background/layers/2_second_Layer/2.png`, 0),
             new BackgroundObject(`../img/5_background/layers/1_first_Layer/2.png`, 0),
 
-            new BackgroundObject(`../img/5_background/layers/air.png`, 719),
             new BackgroundObject(`../img/5_background/layers/3_third_Layer/1.png`, 719),
             new BackgroundObject(`../img/5_background/layers/2_second_Layer/1.png`, 719),
             new BackgroundObject(`../img/5_background/layers/1_first_Layer/1.png`, 719),
 
-            new BackgroundObject(`../img/5_background/layers/air.png`, 719 * 2),
             new BackgroundObject(`../img/5_background/layers/3_third_Layer/2.png`, 719 * 2),
             new BackgroundObject(`../img/5_background/layers/2_second_Layer/2.png`, 719 * 2),
             new BackgroundObject(`../img/5_background/layers/1_first_Layer/2.png`, 719 * 2),
 
-            new BackgroundObject(`../img/5_background/layers/air.png`, 719 * 3),
             new BackgroundObject(`../img/5_background/layers/3_third_Layer/1.png`, 719 * 3),
             new BackgroundObject(`../img/5_background/layers/2_second_Layer/1.png`, 719 * 3),
             new BackgroundObject(`../img/5_background/layers/1_first_Layer/1.png`, 719 * 3),

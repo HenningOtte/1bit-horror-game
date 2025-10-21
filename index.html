@@ -25,10 +25,27 @@
 </head>
 
 <body onload="init()">
-    <h1>skate or die</h1>
-    <button class="btn" onclick="startGame()">Start</button>
-    <canvas id="canvas" width="720" height="480">
-    </canvas>
+    <div class="frame" id="fs">
+        <div class="warning"></div>
+
+        <div class="sound-screen-controlls">
+            <button class="controlls resize" id="btn-fs" onclick="fullscreen()" aria-label="Fullscreen"></button>
+            <button class="controlls mute" id="sound-btn" onclick="toggleMusic()" aria-label="Fullscreen"></button>
+        </div>
+
+        <div class="menu" id="menu">
+            <button class="btn-menu start" id="start-btn" onclick="startGame()"></button>
+            <button class="btn-menu controls" id="controls-btn" onclick=""></button>
+        </div>
+
+        <div class="" id="hud">
+            <div class="panel-wrapper" id="btns-mobile-move"></div>
+            <div class="panel-wrapper" id="btns-mobile-actions"></div>
+        </div>
+
+        <canvas id="canvas" width="720" height="480"></canvas>
+
+    </div>
 </body>
 
 </html>

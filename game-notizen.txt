@@ -11,3 +11,6 @@ Aufgaben:
 - Game-Over Screen
 - Fullscreen (canvas.requestFullscreen())
 - Erklärung (Welche Tasten)
+
+Mobile BTNs:
+btnleft: 'touchstart' und 'touchend'

@@ -1,10 +1,10 @@
 class Endboss extends MoveableObject {
     y = 134;
-    x = 2200;
-    // x = 400;
+    x = 2300;
     height = 130 * 2;
     width = 160 * 2;
     speed = 4;
+    firstContact = false;
 
     offset = {
         top: 68,

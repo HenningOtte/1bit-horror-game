@@ -27,15 +27,36 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.chechTrowObjects();
+            this.checkPlayerPosition();
+            this.checkGameOver();
         }, 1000 / 30);
+    }
+
+    checkGameOver() {
+        if (this.character.isDead()) {
+            console.log('You lost!');            
+        }
+        if (this.getEndboss()?.isDead()) {
+            console.log('You win!');            
+        }
+    }
+
+    checkPlayerPosition() {
+        const boss = this.getEndboss();
+        if (boss.firstContact) return;
+        if (this.character.x >= 1900) {
+            boss.firstContact = true;
+        }
     }
 
     chechTrowObjects() {
         if (this.keyboard.D && this.character.canThrow()) {
-            let fireball = new ThrowableObject(this.character.x + 100, this.character.y + 50);
+            const direction = this.character.otherDirection ? -1 : 1;
+            let fireball = new ThrowableObject(this.character.x + 100, this.character.y + 50, direction);
             this.throwableObjects.push(fireball);
             this.character.recordThrow();
             this.character.ammo -= 1;
+            Game.playSoundEffect(Game.sounds.shoot);
         }
     }
 
@@ -53,12 +74,15 @@ class World {
 
     updateEndbossBehavior() {
         const boss = this.getEndboss();
+        if (!boss.firstContact) return;
 
         if (!boss || !this.character) return;
 
         if (boss.isDead() || this.character.isDead()) {
             boss.attack = false;
             boss.moving = false;
+            boss.active = false;
+            Game.playSoundEffect(Game.sounds.dying);
             return;
         }
 
@@ -84,12 +108,15 @@ class World {
 
     checkFireballCollisions() {
         const boss = this.getEndboss();
-        if (!boss) return;
+        // if (!boss) return;
 
         this.throwableObjects.forEach((fireball, index) => {
             if (boss.isColliding(fireball)) {
                 this.throwableObjects.splice(index, 1);
                 boss.hit(20);
+                if (!boss.isDead()) {
+                    Game.playSoundEffect(Game.sounds.hurt);
+                }
             }
         });
     }
@@ -99,6 +126,7 @@ class World {
             if (this.character.isColliding(fireball)) {
                 this.character.ammo += 1;
                 this.level.fireballs.splice(index, 1);
+                Game.playSoundEffect(Game.sounds.coinSound);
             }
         });
     }
@@ -109,6 +137,7 @@ class World {
                 if (this.character.isJumpingOn(enemy)) {
                     this.character.jump(15);
                     this.level.enemies.splice(index, 1);
+                    Game.playSoundEffect(Game.sounds.jumpOn);
                 } else {
                     if (enemy.isDead()) return;
                     this.character.hit(1);
@@ -124,6 +153,7 @@ class World {
                 this.statusCoin.percentage += 10;
                 this.statusCoin.setPercentage(this.statusCoin.percentage);
                 this.level.coins.splice(index, 1);
+                Game.playSoundEffect(Game.sounds.coinSound);
             }
         });
     }
@@ -132,9 +162,9 @@ class World {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.ctx.translate(this.camera_x, 0);
-
-        this.addObjectsToMap(this.level.backgroundObjects);
+        
         this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.level.backgroundObjects);
 
         this.ctx.translate(-this.camera_x, 0);
         // ----- Space for fixed objects -----

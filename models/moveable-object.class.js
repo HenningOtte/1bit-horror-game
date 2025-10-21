@@ -21,7 +21,7 @@ class MoveableObject extends DrawableObject {
     lastThrow = 0;
     ammo = 5;
     attack = false;
-    moving = true;
+    moving = false;
 
 
     hit(damage) {
@@ -54,7 +54,8 @@ class MoveableObject extends DrawableObject {
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
-            } else {
+            }
+            if (this.y >= 244 && this instanceof Character) {
                 this.y = 244;
                 this.speedY = 0;
             }
