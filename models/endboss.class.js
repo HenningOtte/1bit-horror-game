@@ -79,4 +79,37 @@ class Endboss extends MoveableObject {
             this.startSpriteLoop();
         }, 240)
     }
+
+    updateEndbossBehavior(target) {
+        if (!this.firstContact) return;
+
+        if (!this || !target) return;
+
+        if (this.isDead() || target.isDead()) {
+            this.attack = false;
+            this.moving = false;
+            this.active = false;
+            Game.playSoundEffect(Game.sounds.dying);
+            return;
+        }
+
+        if (this.isColliding(target)) {
+            this.attack = true;
+            this.moving = false;
+            return;
+        }
+
+        const directionX = Math.sign(target.x - this.x);
+
+        if (directionX < 0) {
+            this.moveLeft();
+            this.otherDirection = false;
+        } else if (directionX > 0) {
+            this.moveRight();
+            this.otherDirection = true;
+        }
+
+        this.attack = false;
+        this.moving = directionX !== 0;
+    }
 }

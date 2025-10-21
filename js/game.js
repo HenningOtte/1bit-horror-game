@@ -30,6 +30,7 @@ const Game = {
         shoot: new Audio('../audio/shoot.mp3'),
         hurt: new Audio('../audio/hurt.mp3'),
         dying: new Audio('../audio/dying.mp3'),
+        playerHurt: new Audio('../audio/player_hurt.mp3'),
     },
 
     playMusic() {
@@ -42,14 +43,16 @@ const Game = {
         this.music.bgMusic.pause();
     },
 
-    playSoundEffect(sound) {
+    playSoundEffect(sound, replay = true) {
         if (this.state.isMuted) return;
 
-        for (const key in this.sounds) {
-            const a = this.sounds[key];
-            if (!a.paused) {
-                a.currentTime = 0;
-                a.pause();
+        if (replay) {
+            for (const key in this.sounds) {
+                const a = this.sounds[key];
+                if (!a.paused) {
+                    a.currentTime = 0;
+                    a.pause();
+                }
             }
         }
         sound.play();
@@ -113,6 +116,7 @@ function toggleMusic() {
 
 function init() {
     Game.loadIds();
+    mobileBtns();
     Game.systems.keyboard = new Keyboard();
 }
 
@@ -214,3 +218,38 @@ window.addEventListener('keyup', (e) => {
             break;
     }
 });
+
+function mobileBtns() {
+    document.getElementById('btn-left').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        Game.systems.keyboard.LEFT = true;
+    });
+    document.getElementById('btn-left').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        Game.systems.keyboard.LEFT = false;
+    });
+    document.getElementById('btn-right').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        Game.systems.keyboard.RIGHT = true;
+    });
+    document.getElementById('btn-right').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        Game.systems.keyboard.RIGHT = false;
+    });
+    document.getElementById('btn-jump').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        Game.systems.keyboard.SPACE = true;
+    });
+    document.getElementById('btn-jump').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        Game.systems.keyboard.SPACE = false;
+    });
+    document.getElementById('btn-shoot').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        Game.systems.keyboard.D = true;
+    });
+    document.getElementById('btn-shoot').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        Game.systems.keyboard.D = false;
+    });
+};

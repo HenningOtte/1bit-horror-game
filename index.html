@@ -46,9 +46,15 @@
             <button class="btn-menu controls" id="controls-btn" onclick=""></button>
         </div>
 
-        <div class="" id="hud">
-            <div class="panel-wrapper" id="btns-mobile-move"></div>
-            <div class="panel-wrapper" id="btns-mobile-actions"></div>
+        <div class="btns-mobile-wrapper hidden" id="hud">
+            <div class="panel-wrapper-left" id="btns-mobile-move">
+                <button class="controlls arrow-left" id="btn-left"></button>
+                <button class="controlls arrow-right" id="btn-right"></button>
+            </div>
+            <div class="panel-wrapper-right" id="btns-mobile-actions">
+                <button class="controlls arrow-jump" id="btn-jump"></button>
+                <button class="controlls btn-shoot" id="btn-shoot"></button>
+            </div>
         </div>
 
         <canvas id="canvas" width="720" height="480"></canvas>

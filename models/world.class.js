@@ -78,50 +78,20 @@ class World {
         this.checkCoinCollisions();
         this.checkFireballItemCollisions();
         this.checkFireballCollisions();
-        this.updateEndbossBehavior();
+        this.startEndbossAi();
     }
 
     getEndboss() {
         return this.level.enemies.find(enemy => enemy instanceof Endboss);
     }
 
-    updateEndbossBehavior() {
-        const boss = this.getEndboss();
-        if (!boss.firstContact) return;
-
-        if (!boss || !this.character) return;
-
-        if (boss.isDead() || this.character.isDead()) {
-            boss.attack = false;
-            boss.moving = false;
-            boss.active = false;
-            Game.playSoundEffect(Game.sounds.dying);
-            return;
-        }
-
-        if (boss.isColliding(this.character)) {
-            boss.attack = true;
-            boss.moving = false;
-            return;
-        }
-
-        const directionX = Math.sign(this.character.x - boss.x);
-
-        if (directionX < 0) {
-            boss.moveLeft();
-            boss.otherDirection = false;
-        } else if (directionX > 0) {
-            boss.moveRight();
-            boss.otherDirection = true;
-        }
-
-        boss.attack = false;
-        boss.moving = directionX !== 0;
+    startEndbossAi() {
+        this.getEndboss().updateEndbossBehavior(this.character);
     }
 
     checkFireballCollisions() {
         const boss = this.getEndboss();
-        // if (!boss) return;
+        if (!boss) return;
 
         this.throwableObjects.forEach((fireball, index) => {
             if (boss.isColliding(fireball)) {
@@ -154,6 +124,7 @@ class World {
                 } else {
                     if (enemy.isDead()) return;
                     this.character.hit(1);
+                    Game.playSoundEffect(Game.sounds.playerHurt, false);
                     this.statusHealth.setPercentage(this.character.energy);
                 }
             }

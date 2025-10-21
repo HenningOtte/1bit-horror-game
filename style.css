@@ -20,7 +20,6 @@ body {
 }
 
 .frame {
-    top: 64px;
     position: relative;
     width: 720px;
     height: 480px;
@@ -125,6 +124,38 @@ body {
     background-image: url(./img/1_icons/replay.png);
 }
 
+.arrow-left {
+    background-image: url(./img/1_icons/arrow_left.png);
+}
+
+.arrow-left:hover {
+    background-image: url(./img/1_icons/arrow_left_invert.png);
+}
+
+.arrow-right {
+    background-image: url(./img/1_icons/arrow_right.png);
+}
+
+.arrow-right:hover {
+    background-image: url(./img/1_icons/arrow_right_invert.png);
+}
+
+.arrow-jump {
+    background-image: url(./img/1_icons/arrow_up.png);
+}
+
+.arrow-jump:hover {
+    background-image: url(./img/1_icons/arrow_up_invert.png);
+}
+
+.btn-shoot {
+    background-image: url(./img/1_icons/shoot.png);
+}
+
+.btn-shoot:hover {
+    background-image: url(./img/1_icons/shoot_invert.png);
+}
+
 .menu {
     position: absolute;
     width: 100%;
@@ -181,7 +212,34 @@ canvas {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
+}
+
+.btns-mobile-wrapper {
+    height: 10%;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    z-index: 3;
+    margin-bottom: 3%;
+}
+
+.panel-wrapper-left {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 10%;
+}
+
+.panel-wrapper-right {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    justify-content: space-between;
+    margin-right: 10%;
 }
 
 @media only screen and (max-height: 760px) {
