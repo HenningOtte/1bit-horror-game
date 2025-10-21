@@ -3,11 +3,13 @@ class World {
     statusHealth = new StatusBar(10, 10, 100, 'health');
     statusCoin = new StatusBar(10, 53, 0, 'coin');
     throwableObjects = [];
+    intervalIDs = [];
     level = level1;
     canvas;
     ctx;
     keyboard;
     camera_x = 0;
+    gameOver = false;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -24,7 +26,7 @@ class World {
     }
 
     run() {
-        setInterval(() => {
+        Game.setStoppableInterval(() => {
             this.checkCollisions();
             this.chechTrowObjects();
             this.checkPlayerPosition();
@@ -33,11 +35,22 @@ class World {
     }
 
     checkGameOver() {
+        if (this.gameOver) return;
+
         if (this.character.isDead()) {
-            console.log('You lost!');            
+            this.gameOver = true;
+            setTimeout(async () => {
+                Game.stopGame();
+                Game.handleGameResult(false);
+            }, 1000);
         }
-        if (this.getEndboss()?.isDead()) {
-            console.log('You win!');            
+
+        if (this.getEndboss().isDead()) {
+            this.gameOver = true;
+            setTimeout(async () => {
+                Game.stopGame();
+                Game.handleGameResult(true);
+            }, 3000);
         }
     }
 
@@ -162,7 +175,7 @@ class World {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.ctx.translate(this.camera_x, 0);
-        
+
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.backgroundObjects);
 

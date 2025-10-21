@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Escape AI</title>
+    <link rel="stylesheet" href="./styles/animations-keyframes.css">
     <link rel="stylesheet" href="./style.css">
     <script src="./models/drawable-object.class.js"></script>
     <script src="./models/moveable-object.class.js"></script>
@@ -31,6 +32,13 @@
         <div class="sound-screen-controlls">
             <button class="controlls resize" id="btn-fs" onclick="fullscreen()" aria-label="Fullscreen"></button>
             <button class="controlls mute" id="sound-btn" onclick="toggleMusic()" aria-label="Fullscreen"></button>
+        </div>
+
+        <div class="game-result_wrapper hidden" id="result">
+            <div class="action-buttons">
+                <button class="controlls home" id="btn-fs" onclick="home()" aria-label="Fullscreen"></button>
+                <button class="controlls replay" id="sound-btn" onclick="replay()" aria-label="Fullscreen"></button>
+            </div>
         </div>
 
         <div class="menu" id="menu">

@@ -1,0 +1,101 @@
+@keyframes lightning {
+    10% {
+        background-image: url('../img/9_intro_outro_screens/start/Startbildschirm.png')
+    }
+
+    14% {
+        background-image: url('../img/9_intro_outro_screens/start/Startbildschirm_invert.png')
+    }
+
+    30% {
+        background-image: url('../img/9_intro_outro_screens/start/Startbildschirm.png')
+    }
+
+    60% {
+        background-image: url('../img/9_intro_outro_screens/start/Startbildschirm.png')
+    }
+
+    64% {
+        background-image: url('../img/9_intro_outro_screens/start/Startbildschirm_invert.png')
+    }
+
+    74% {
+        background-image: url('../img/9_intro_outro_screens/start/Startbildschirm.png')
+    }
+
+    80% {
+        background-image: url('../img/9_intro_outro_screens/start/Startbildschirm_invert.png')
+    }
+
+    90% {
+        background-image: url('../img/9_intro_outro_screens/start/Startbildschirm.png')
+    }
+}
+
+@keyframes won-animation {
+    10% {
+        background-image: url('../img/9_intro_outro_screens/won/Won.png')
+    }
+
+    14% {
+        background-image: url('../img/9_intro_outro_screens/won/Won_invert.png')
+    }
+
+    30% {
+        background-image: url('../img/9_intro_outro_screens/won/Won.png')
+    }
+
+    60% {
+        background-image: url('../img/9_intro_outro_screens/won/Won.png')
+    }
+
+    64% {
+        background-image: url('../img/9_intro_outro_screens/won/Won_invert.png')
+    }
+
+    74% {
+        background-image: url('../img/9_intro_outro_screens/won/Won.png')
+    }
+
+    80% {
+        background-image: url('../img/9_intro_outro_screens/won/Won_invert.png')
+    }
+
+    90% {
+        background-image: url('../img/9_intro_outro_screens/won/Won.png')
+    }
+}
+
+@keyframes gameover {
+    10% {
+        background-image: url('../img/9_intro_outro_screens/game_over/GameOver.png')
+    }
+
+    14% {
+        background-image: url('../img/9_intro_outro_screens/game_over/GameOver-invert.png')
+    }
+
+    30% {
+        background-image: url('../img/9_intro_outro_screens/game_over/GameOver.png')
+    }
+
+    60% {
+        background-image: url('../img/9_intro_outro_screens/game_over/GameOver.png')
+    }
+
+    64% {
+        background-image: url('../img/9_intro_outro_screens/game_over/GameOver-invert.png')
+    }
+
+    74% {
+        background-image: url('../img/9_intro_outro_screens/game_over/GameOver.png')
+    }
+
+    80% {
+        background-image: url('../img/9_intro_outro_screens/game_over/GameOver-invert.png')
+    }
+
+    90% {
+        background-image: url('../img/9_intro_outro_screens/game_over/GameOver.png')
+    }
+}

@@ -1,6 +1,0 @@
-- Startbildschirm (Charakter, Logo, Playbutton und Hintergrund)
-- Charakter: "springen, laufen und werfen"
-- Leben, Münzen und Dinge zum werfen
-- Gegner und Endboss
-- Lautstärke und Größersymbol
-

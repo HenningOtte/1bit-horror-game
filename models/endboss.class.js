@@ -58,22 +58,25 @@ class Endboss extends MoveableObject {
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_IDLE);
         this.animate();
-    }
+    };
+
+    startSpriteLoop() {
+        if (this.isDead()) {
+            this.playAnimation(this.IMAGES_DEAD, false);
+        } else if (this.isHurt()) {
+            this.playAnimation(this.IMAGES_HURT, false);
+        } else if (this.attack) {
+            this.playAnimation(this.IMAGES_ATTACK);
+        } else if (!this.moving) {
+            this.playAnimation(this.IMAGES_IDLE);
+        } else {
+            this.playAnimation(this.IMAGES_WALKING);
+        }
+    };
 
     animate() {
-        setInterval(() => {
-            if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD, false);
-            } else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT, false);
-            } else if (this.attack) {
-                this.playAnimation(this.IMAGES_ATTACK);
-            } else if (!this.moving) {
-                this.playAnimation(this.IMAGES_IDLE);
-            } else {
-                this.playAnimation(this.IMAGES_WALKING);
-            }
-
-        }, 240);
+        Game.setStoppableInterval(() => {
+            this.startSpriteLoop();
+        }, 240)
     }
 }

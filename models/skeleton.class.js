@@ -31,10 +31,11 @@ class Skeleton extends MoveableObject {
     }
 
     animate() {
-        setInterval(() => {
+        Game.setStoppableInterval(() => {
             this.moveLeft();
-        }, 1000 / 60)
-        setInterval(() => {
+        }, 1000 / 60);
+
+        Game.setStoppableInterval(() => {
             this.playAnimation(this.IMAGES_WALKING);
         }, 60);
     }

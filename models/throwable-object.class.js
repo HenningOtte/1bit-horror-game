@@ -29,13 +29,14 @@ class ThrowableObject extends MoveableObject {
         this.y = y;
         this.speedY = 30;
         this.applyGravity();
-        setInterval(() => {
+
+        Game.setStoppableInterval(() => {
             this.x += 10 * direction;
         }, 25);
     }
 
     applyFriction() {
-        setInterval(() => {
+        Game.setStoppableInterval(() => {
             this.x += this.speedX;
             if (this.speedX > 0) this.speedX = this.speedX - this.dragX;
             if (this.speedX <= 0) this.speedX = 0;

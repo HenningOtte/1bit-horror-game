@@ -23,7 +23,7 @@ class FireballItem extends MoveableObject {
     }
 
     animate() {
-        setInterval(() => {
+        Game.setStoppableInterval(() => {
             this.playAnimation(this.IMAGES_FIREBALL);
         }, 1000 / 10);
     }

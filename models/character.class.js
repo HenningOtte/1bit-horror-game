@@ -55,47 +55,55 @@ class Character extends MoveableObject {
         this.animate();
     }
 
+    startControlLoop() {
+        if (this.world.keyboard.RIGHT &&
+            this.x < this.world.level.level_end_x &&
+            !this.isDead()
+        ) {
+            this.moveRight();
+            this.otherDirection = false;
+        }
+
+        if (this.world.keyboard.LEFT &&
+            this.x > 0 &&
+            !this.isDead()
+        ) {
+            this.moveLeft();
+            this.otherDirection = true;
+        }
+
+        if (this.world.keyboard.SPACE &&
+            !this.isAboveGround() &&
+            !this.isDead()
+        ) {
+            this.jump();
+        }
+        this.world.camera_x = -this.x + 100;
+    }
+
+    startSpriteLoop() {
+        if (this.isDead()) {
+            this.playAnimation(this.IMAGES_DEAD, false);
+        } else if (this.isHurt()) {
+            this.playAnimation(this.IMAGES_HURT);
+        } else if (this.isAboveGround()) {
+            this.playAnimation(this.IMAGES_JUMPING, false);
+        } else {
+            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                this.playAnimation(this.IMAGES_WALKING);
+            } else {
+                this.playAnimation(this.IMAGES_IDLE);
+            }
+        }
+    }
+
     animate() {
-        setInterval(() => {
-            if (this.world.keyboard.RIGHT &&
-                this.x < this.world.level.level_end_x &&
-                !this.isDead()
-            ) {
-                this.moveRight();
-                this.otherDirection = false;
-            }
-
-            if (this.world.keyboard.LEFT &&
-                this.x > 0 &&
-                !this.isDead()
-            ) {
-                this.moveLeft();
-                this.otherDirection = true;
-            }
-
-            if (this.world.keyboard.SPACE &&
-                !this.isAboveGround() &&
-                !this.isDead()
-            ) {
-                this.jump();
-            }
-            this.world.camera_x = -this.x + 100;
+        Game.setStoppableInterval(() => {
+            this.startControlLoop();
         }, 1000 / 60);
 
-        setInterval(() => {
-            if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD, false);
-            } else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT);
-            } else if (this.isAboveGround()) {
-                this.playAnimation(this.IMAGES_JUMPING, false);
-            } else {
-                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                    this.playAnimation(this.IMAGES_WALKING);
-                } else {
-                    this.playAnimation(this.IMAGES_IDLE);
-                }
-            }
+        Game.setStoppableInterval(() => {
+            this.startSpriteLoop();
         }, 100);
     }
 }

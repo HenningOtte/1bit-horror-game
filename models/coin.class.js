@@ -20,8 +20,8 @@ class Coin extends MoveableObject {
     }
 
     animate() {
-        setInterval(() => {
+        Game.setStoppableInterval(() => {
             this.playAnimation(this.IMAGES_ROTATING);
-        }, 1000 / 10);
+        }, 1000 / 10)
     }
 }

@@ -13,10 +13,12 @@ const Game = {
             controls: null,
             btnFs: null,
             sound: null,
-        },
+            result: null
+        }
     },
     systems: {
         world: null,
+        intervalIDs: [],
         keyboard: null,
     },
     music: {
@@ -43,32 +45,56 @@ const Game = {
     playSoundEffect(sound) {
         if (this.state.isMuted) return;
 
-        for (const key in Game.sounds) {
-            const a = Game.sounds[key];
+        for (const key in this.sounds) {
+            const a = this.sounds[key];
             if (!a.paused) {
-                a.pause();
                 a.currentTime = 0;
+                a.pause();
             }
         }
         sound.play();
+    },
+
+    setStoppableInterval(fn, time) {
+        let id = setInterval(fn, time);
+        this.systems.intervalIDs.push(id);
+    },
+
+    stopGame() {
+        this.systems.intervalIDs.forEach(clearInterval);
+    },
+
+    gameover() {
+        Game.systems.world = null;
+        this.refs.ids.result.classList.remove('bg-won');
+        setTimeout(() => {
+            this.refs.ids.result.classList.add('bg-gameover');
+        }, 500);
+    },
+
+    won() {
+        this.systems.world = null;
+        this.refs.ids.result.classList.remove('bg-gameover');
+        setTimeout(() => {
+            this.refs.ids.result.classList.add('bg-won');
+        }, 500);
+    },
+
+    handleGameResult(result) {
+        result == true ? this.won() : this.gameover();
+        this.refs.ids.result.classList.toggle('hidden');
+    },
+
+    loadIds() {
+        this.refs.ids.fs = document.getElementById('fs');
+        this.refs.ids.menu = document.getElementById('menu');
+        this.refs.ids.start = document.getElementById('start-btn');
+        this.refs.ids.controls = document.getElementById('controls-btn');
+        this.refs.ids.btnFs = document.getElementById('btn-fs');
+        this.refs.ids.sound = document.getElementById('sound-btn');
+        this.refs.ids.result = document.getElementById('result');
+        this.refs.canvas = document.getElementById('canvas');
     }
-
-}
-
-const bgMusic = new Audio('../audio/Horror_Music_8bit.mp3');
-bgMusic.loop = true;
-bgMusic.volume = 0.4;
-
-function loadIds() {
-    Game.refs.ids = {
-        fs: document.getElementById('fs'),
-        menu: document.getElementById('menu'),
-        start: document.getElementById('start-btn'),
-        controls: document.getElementById('controls-btn'),
-        btnFs: document.getElementById('btn-fs'),
-        sound: document.getElementById('sound-btn'),
-    }
-    Game.refs.canvas = document.getElementById('canvas');
 }
 
 function toggleMusic() {
@@ -86,15 +112,29 @@ function toggleMusic() {
 }
 
 function init() {
-    loadIds();
+    Game.loadIds();
     Game.systems.keyboard = new Keyboard();
+}
+
+function replay() {
+    const resultWrapper = document.querySelector('.game-result_wrapper');
+    resultWrapper.classList.add('hidden');
+    Game.state.gameStarted = false;
+    startGame();
+}
+
+function home() {
+    const resultWrapper = document.querySelector('.game-result_wrapper');
+    resultWrapper.classList.add('hidden');
+    Game.state.gameStarted = false;
+    Game.refs.ids.menu.classList.remove('hidden');
 }
 
 function startGame() {
     if (Game.state.gameStarted) return;
-    initLevel();
     Game.state.gameStarted = true;
-    Game.refs.ids.menu.classList.toggle('hidden');
+    Game.refs.ids.menu.classList.add('hidden');
+    initLevel();
     Game.systems.world = new World(Game.refs.canvas, Game.systems.keyboard);
 }
 
@@ -112,9 +152,9 @@ function fullscreen() {
 function enterFullscreen(element) {
     if (element.requestFullscreen) {
         element.requestFullscreen();
-    } else if (element.msRequestFullscreen) {      // for IE11 (remove June 15, 2022)
+    } else if (element.msRequestFullscreen) {
         element.msRequestFullscreen();
-    } else if (element.webkitRequestFullscreen) {  // iOS Safari
+    } else if (element.webkitRequestFullscreen) {
         element.webkitRequestFullscreen();
     }
 }
