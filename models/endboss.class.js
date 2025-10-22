@@ -5,6 +5,7 @@ class Endboss extends MoveableObject {
     width = 160 * 2;
     speed = 4;
     firstContact = false;
+    energy = 100;
 
     offset = {
         top: 68,
@@ -83,13 +84,10 @@ class Endboss extends MoveableObject {
     updateEndbossBehavior(target) {
         if (!this.firstContact) return;
 
-        if (!this || !target) return;
-
         if (this.isDead() || target.isDead()) {
             this.attack = false;
             this.moving = false;
             this.active = false;
-            Game.playSoundEffect(Game.sounds.dying);
             return;
         }
 

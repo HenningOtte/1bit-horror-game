@@ -1,13 +1,14 @@
 class Skeleton extends MoveableObject {
     y = 244
     height = 78 * 2;
-    width = 58 * 2;
+    width = 80 * 2;
     offset = {
         top: 10,
-        left: 20,
-        right: 20,
+        left: 44,
+        right: 44,
         bottom: 10
     };
+    energy = 20;
     IMAGES_WALKING = [
         '../img/3_enemie_skeleton/1_walk/1.png',
         '../img/3_enemie_skeleton/1_walk/2.png',
@@ -18,11 +19,17 @@ class Skeleton extends MoveableObject {
         '../img/3_enemie_skeleton/1_walk/7.png',
         '../img/3_enemie_skeleton/1_walk/8.png'
     ];
+    IMAGES_DEAD = [
+        '../img/3_enemie_skeleton/2_dead/1.png',
+        '../img/3_enemie_skeleton/2_dead/2.png',
+        '../img/3_enemie_skeleton/2_dead/3.png'
+    ]
 
     constructor() {
         super();
         this.loadImage('../img/3_enemie_skeleton/1_walk/1.png');
         this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_DEAD);
 
         this.x = 400 + Math.random() * 500;
         this.speed = 0.15 + Math.random() * 0.25;
@@ -32,11 +39,17 @@ class Skeleton extends MoveableObject {
 
     animate() {
         Game.setStoppableInterval(() => {
-            this.moveLeft();
+            if (!this.isDead()) {
+                this.moveLeft();
+            }
         }, 1000 / 60);
 
         Game.setStoppableInterval(() => {
-            this.playAnimation(this.IMAGES_WALKING);
+            if (!this.isDead()) {
+                this.playAnimation(this.IMAGES_WALKING);
+            } else if (this.isDead()) {
+                this.playAnimation(this.IMAGES_DEAD, false);
+            }
         }, 60);
     }
 }

@@ -2,6 +2,8 @@ class World {
     character = new Character();
     statusHealth = new StatusBar(10, 10, 100, 'health');
     statusCoin = new StatusBar(10, 53, 0, 'coin');
+    statusFire = new StatusBar(10, 96, 0, 'fire');
+    statusEndboss = new StatusBar(268, 53, 100, 'endboss', 188, 60);
     throwableObjects = [];
     intervalIDs = [];
     level = level1;
@@ -36,22 +38,26 @@ class World {
 
     checkGameOver() {
         if (this.gameOver) return;
+        if (this.character.isDead()) this.playerLost();
+        if (this.getEndboss().isDead()) this.playerWon();
+    }
 
-        if (this.character.isDead()) {
-            this.gameOver = true;
-            setTimeout(async () => {
-                Game.stopGame();
-                Game.handleGameResult(false);
-            }, 1000);
-        }
+    playerLost() {
+        this.gameOver = true;
+        setTimeout(async () => {
+            Game.stopGame();
+            Game.handleGameResult(false);
+        }, 2000);
 
-        if (this.getEndboss().isDead()) {
-            this.gameOver = true;
-            setTimeout(async () => {
-                Game.stopGame();
-                Game.handleGameResult(true);
-            }, 3000);
-        }
+    }
+
+    playerWon() {
+        Game.playSoundEffect(Game.sounds.dying, false);
+        this.gameOver = true;
+        setTimeout(async () => {
+            Game.stopGame();
+            Game.handleGameResult(true);
+        }, 2000);
     }
 
     checkPlayerPosition() {
@@ -60,7 +66,7 @@ class World {
         if (this.character.x >= 1900) {
             boss.firstContact = true;
         }
-    }
+    }    
 
     chechTrowObjects() {
         if (this.keyboard.D && this.character.canThrow()) {
@@ -68,9 +74,15 @@ class World {
             let fireball = new ThrowableObject(this.character.x + 100, this.character.y + 50, direction);
             this.throwableObjects.push(fireball);
             this.character.recordThrow();
-            this.character.ammo -= 1;
+            this.updateFireAmmoStatus(-1);
             Game.playSoundEffect(Game.sounds.shoot);
         }
+    }
+
+    updateFireAmmoStatus(ammount = 1) {
+        this.character.ammo += ammount;
+        this.statusFire.percentage += ammount * 20;
+        this.statusFire.setPercentage(this.statusFire.percentage);
     }
 
     checkCollisions() {
@@ -90,43 +102,42 @@ class World {
     }
 
     checkFireballCollisions() {
-        const boss = this.getEndboss();
-        if (!boss) return;
-
         this.throwableObjects.forEach((fireball, index) => {
-            if (boss.isColliding(fireball)) {
-                this.throwableObjects.splice(index, 1);
-                boss.hit(20);
-                if (!boss.isDead()) {
-                    Game.playSoundEffect(Game.sounds.hurt);
-                }
-            }
+            let enemy = this.findCollidingEnemy(fireball);
+            if (enemy) this.resolveFireballHit(index, enemy);
         });
+    }
+
+    resolveFireballHit(fireballIndex, enemy) {
+        this.throwableObjects.splice(fireballIndex, 1);
+        enemy.hit(20);
+
+        if (enemy instanceof Endboss) {
+            if (!enemy.isDead()) Game.playSoundEffect(Game.sounds.hurt);
+            this.updateEndbossStatus();
+        }
+        if (enemy.isDead() && enemy instanceof Skeleton) {
+            Game.playSoundEffect(Game.sounds.skeleton_dead);
+        }
+    }
+
+    updateEndbossStatus() {
+        this.statusEndboss.percentage -= 20;
+        this.statusEndboss.setPercentage(this.statusEndboss.percentage);
+    }
+
+    findCollidingEnemy(fireball) {
+        return this.level.enemies.find(e => !e.isDead() && e.isColliding(fireball)) || null;
     }
 
     checkFireballItemCollisions() {
+        if (this.character.ammo >= 5) return
+
         this.level.fireballs.forEach((fireball, index) => {
             if (this.character.isColliding(fireball)) {
-                this.character.ammo += 1;
+                this.updateFireAmmoStatus(1);
                 this.level.fireballs.splice(index, 1);
                 Game.playSoundEffect(Game.sounds.coinSound);
-            }
-        });
-    }
-
-    checkEnemyCollisions() {
-        this.level.enemies.forEach((enemy, index) => {
-            if (this.character.isColliding(enemy)) {
-                if (this.character.isJumpingOn(enemy)) {
-                    this.character.jump(15);
-                    this.level.enemies.splice(index, 1);
-                    Game.playSoundEffect(Game.sounds.jumpOn);
-                } else {
-                    if (enemy.isDead()) return;
-                    this.character.hit(1);
-                    Game.playSoundEffect(Game.sounds.playerHurt, false);
-                    this.statusHealth.setPercentage(this.character.energy);
-                }
             }
         });
     }
@@ -138,6 +149,24 @@ class World {
                 this.statusCoin.setPercentage(this.statusCoin.percentage);
                 this.level.coins.splice(index, 1);
                 Game.playSoundEffect(Game.sounds.coinSound);
+            }
+        });
+    }
+
+    checkEnemyCollisions() {
+        this.level.enemies.forEach((enemy, index) => {
+            if (this.character.isColliding(enemy)) {
+                if (enemy.isDead()) return;
+
+                if (this.character.isJumpingOn(enemy)) {
+                    this.character.jump(15);
+                    enemy.hit(20);
+                    Game.playSoundEffect(Game.sounds.jumpOn);
+                } else {
+                    this.character.hit(1);
+                    Game.playSoundEffect(Game.sounds.playerHurt, false);
+                    this.statusHealth.setPercentage(this.character.energy);
+                }
             }
         });
     }
@@ -154,6 +183,8 @@ class World {
         // ----- Space for fixed objects -----
         this.addToMap(this.statusHealth);
         this.addToMap(this.statusCoin);
+        this.addToMap(this.statusFire);
+        if (this.getEndboss().firstContact) this.addToMap(this.statusEndboss);
         this.ctx.translate(this.camera_x, 0);
 
         this.addToMap(this.character);
@@ -184,8 +215,6 @@ class World {
 
         try {
             mo.draw(this.ctx);
-            // mo.drawFrame(this.ctx, this.x, this.y, this.width, this.height)
-
         } catch (error) {
             console.error(error);
         }

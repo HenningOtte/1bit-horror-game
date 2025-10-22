@@ -13,7 +13,8 @@ const Game = {
             controls: null,
             btnFs: null,
             sound: null,
-            result: null
+            result: null,
+            hud: null
         }
     },
     systems: {
@@ -31,6 +32,7 @@ const Game = {
         hurt: new Audio('../audio/hurt.mp3'),
         dying: new Audio('../audio/dying.mp3'),
         playerHurt: new Audio('../audio/player_hurt.mp3'),
+        skeleton_dead: new Audio('../audio/skeleton_dead.mp3'),
     },
 
     playMusic() {
@@ -96,6 +98,7 @@ const Game = {
         this.refs.ids.btnFs = document.getElementById('btn-fs');
         this.refs.ids.sound = document.getElementById('sound-btn');
         this.refs.ids.result = document.getElementById('result');
+        this.refs.ids.hud = document.getElementById('hud');
         this.refs.canvas = document.getElementById('canvas');
     }
 }

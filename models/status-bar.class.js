@@ -1,32 +1,49 @@
 class StatusBar extends DrawableObject {
     BAR_VARIANTS = {
         health: [
-            '../img/7_statusbars/1_statusbar/2_statusbar_health/0.png',
-            '../img/7_statusbars/1_statusbar/2_statusbar_health/20.png',
-            '../img/7_statusbars/1_statusbar/2_statusbar_health/40.png',
-            '../img/7_statusbars/1_statusbar/2_statusbar_health/60.png',
-            '../img/7_statusbars/1_statusbar/2_statusbar_health/80.png',
-            '../img/7_statusbars/1_statusbar/2_statusbar_health/100.png',
+            '../img/7_statusbars/2_statusbar_health/0.png',
+            '../img/7_statusbars/2_statusbar_health/20.png',
+            '../img/7_statusbars/2_statusbar_health/40.png',
+            '../img/7_statusbars/2_statusbar_health/60.png',
+            '../img/7_statusbars/2_statusbar_health/80.png',
+            '../img/7_statusbars/2_statusbar_health/100.png',
         ],
         coin: [
-            '../img/7_statusbars/1_statusbar/1_statusbar_coin/0.png',
-            '../img/7_statusbars/1_statusbar/1_statusbar_coin/20.png',
-            '../img/7_statusbars/1_statusbar/1_statusbar_coin/40.png',
-            '../img/7_statusbars/1_statusbar/1_statusbar_coin/60.png',
-            '../img/7_statusbars/1_statusbar/1_statusbar_coin/80.png',
-            '../img/7_statusbars/1_statusbar/1_statusbar_coin/100.png'
+            '../img/7_statusbars/1_statusbar_coin/0.png',
+            '../img/7_statusbars/1_statusbar_coin/20.png',
+            '../img/7_statusbars/1_statusbar_coin/40.png',
+            '../img/7_statusbars/1_statusbar_coin/60.png',
+            '../img/7_statusbars/1_statusbar_coin/80.png',
+            '../img/7_statusbars/1_statusbar_coin/100.png'
+        ],
+        fire: [
+            '../img/7_statusbars/3_statusbar_fire/0.png',
+            '../img/7_statusbars/3_statusbar_fire/20.png',
+            '../img/7_statusbars/3_statusbar_fire/40.png',
+            '../img/7_statusbars/3_statusbar_fire/60.png',
+            '../img/7_statusbars/3_statusbar_fire/80.png',
+            '../img/7_statusbars/3_statusbar_fire/100.png'
+        ],
+        endboss: [
+            '../img/7_statusbars/4_endboss/0.png',
+            '../img/7_statusbars/4_endboss/20.png',
+            '../img/7_statusbars/4_endboss/40.png',
+            '../img/7_statusbars/4_endboss/60.png',
+            '../img/7_statusbars/4_endboss/80.png',
+            '../img/7_statusbars/4_endboss/100.png'
         ]
     };
-    
-    width = 49 * 3;
-    height = 13 * 3;
+
     percentage = 100;
 
-    constructor(x, y, percent = 100, variant = 'health') {
+    constructor(x, y, percent = 100, variant = 'health', width = 124, height = 32) {
         super();
         this.x = x;
         this.y = y;
+        this.width = width;
+        this.height = height;
         this.variant = variant;
+        this.percentage = percent;
         this.setVariant();
         this.setPercentage(percent);
     }
@@ -36,13 +53,13 @@ class StatusBar extends DrawableObject {
         this.loadImages(images);
     }
 
-    setPercentage(percentage) {
-        this.percentage = percentage;
+    setPercentage(percent) {
+        this.percentage = percent;        
         let path = this.BAR_VARIANTS[this.variant][this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
 
-    resolveImageIndex() {
+    resolveImageIndex() {        
         if (this.percentage >= 100) {
             return 5;
         } else if (this.percentage >= 80) {

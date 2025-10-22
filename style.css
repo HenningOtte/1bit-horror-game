@@ -13,17 +13,20 @@
 }
 
 body {
+    /* overflow: hidden; */
+    background-color: black;
+    background-image: url('./img/5_background/background_pattern.png');
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: hidden;
+    justify-content: center;
+    align-items: center
 }
 
 .frame {
     position: relative;
-    width: 720px;
-    height: 480px;
-    aspect-ratio: 720 / 480;
+    aspect-ratio: 3 / 2;
+    max-width: 720px;
+    outline: 10px solid black;
+    top: 60px;
 }
 
 .game-result_wrapper {
@@ -58,7 +61,7 @@ body {
     display: flex;
     justify-content: space-around;
     gap: 1%;
-    margin-top: 45%;
+    margin-top: 35%;
     padding: 2%;
 }
 
@@ -216,11 +219,11 @@ canvas {
 }
 
 .btns-mobile-wrapper {
+    display: none;
     height: 10%;
     width: 100%;
     position: absolute;
     bottom: 0;
-    display: flex;
     justify-content: space-between;
     z-index: 3;
     margin-bottom: 3%;
@@ -244,12 +247,30 @@ canvas {
 
 @media only screen and (max-height: 760px) {
     .frame {
-        width: 100%;
+        width: 100%;        
+        top: 0;
     }
 }
 
 @media only screen and (max-height: 480px) {
     .frame {
         height: 100vh;
+        top: 0; 
     }
+}
+
+@media (max-width: 900px) {
+    .btns-mobile-wrapper {
+        display: flex;
+    }
+}
+
+@media (hover: none) and (pointer: coarse) {
+    .btns-mobile-wrapper {
+        display: flex;
+    }
+}
+
+.btns-mobile-wrapper.hidden {
+    display: none !important;
 }

@@ -19,7 +19,7 @@ class MoveableObject extends DrawableObject {
     energy = 100;
     lastHit = 0;
     lastThrow = 0;
-    ammo = 5;
+    ammo = 0;
     attack = false;
     moving = false;
 
@@ -74,13 +74,14 @@ class MoveableObject extends DrawableObject {
         return this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
             this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
             this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
-            this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
+            this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom
     }
 
     isJumpingOn(mo) {
         return this.y + this.height >= mo.y &&
             this.y + this.height <= mo.y + 20 &&
-            this.speedY < 0;
+            this.speedY < 0 &&
+            !mo.isDead()
     }
 
     moveRight() {
@@ -98,11 +99,7 @@ class MoveableObject extends DrawableObject {
         this.currentImage++;
 
         if (this.currentImage >= imgs.length) {
-            if (loop) {
-                this.currentImage = 0;
-            } else {
-                this.currentImage = imgs.length - 1;
-            }
+            loop == true ? this.currentImage = 0 : this.currentImage = imgs.length - 1;
         }
     }
 
