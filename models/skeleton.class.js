@@ -10,24 +10,24 @@ class Skeleton extends MoveableObject {
     };
     energy = 20;
     IMAGES_WALKING = [
-        '../img/3_enemie_skeleton/1_walk/1.png',
-        '../img/3_enemie_skeleton/1_walk/2.png',
-        '../img/3_enemie_skeleton/1_walk/3.png',
-        '../img/3_enemie_skeleton/1_walk/4.png',
-        '../img/3_enemie_skeleton/1_walk/5.png',
-        '../img/3_enemie_skeleton/1_walk/6.png',
-        '../img/3_enemie_skeleton/1_walk/7.png',
-        '../img/3_enemie_skeleton/1_walk/8.png'
+        './img/3_enemie_skeleton/1_walk/1.png',
+        './img/3_enemie_skeleton/1_walk/2.png',
+        './img/3_enemie_skeleton/1_walk/3.png',
+        './img/3_enemie_skeleton/1_walk/4.png',
+        './img/3_enemie_skeleton/1_walk/5.png',
+        './img/3_enemie_skeleton/1_walk/6.png',
+        './img/3_enemie_skeleton/1_walk/7.png',
+        './img/3_enemie_skeleton/1_walk/8.png'
     ];
     IMAGES_DEAD = [
-        '../img/3_enemie_skeleton/2_dead/1.png',
-        '../img/3_enemie_skeleton/2_dead/2.png',
-        '../img/3_enemie_skeleton/2_dead/3.png'
+        './img/3_enemie_skeleton/2_dead/1.png',
+        './img/3_enemie_skeleton/2_dead/2.png',
+        './img/3_enemie_skeleton/2_dead/3.png'
     ]
 
     constructor() {
         super();
-        this.loadImage('../img/3_enemie_skeleton/1_walk/1.png');
+        this.loadImage('./img/3_enemie_skeleton/1_walk/1.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_DEAD);
 

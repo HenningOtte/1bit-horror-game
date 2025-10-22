@@ -16,39 +16,39 @@ class Endboss extends MoveableObject {
     };
 
     IMAGES_WALKING = [
-        '../img/4_enemie_boss_neuron/1_walk/G1.png',
-        '../img/4_enemie_boss_neuron/1_walk/G2.png',
-        '../img/4_enemie_boss_neuron/1_walk/G3.png',
-        '../img/4_enemie_boss_neuron/1_walk/G4.png',
-        '../img/4_enemie_boss_neuron/1_walk/G5.png',
-        '../img/4_enemie_boss_neuron/1_walk/G6.png',
+        './img/4_enemie_boss_neuron/1_walk/G1.png',
+        './img/4_enemie_boss_neuron/1_walk/G2.png',
+        './img/4_enemie_boss_neuron/1_walk/G3.png',
+        './img/4_enemie_boss_neuron/1_walk/G4.png',
+        './img/4_enemie_boss_neuron/1_walk/G5.png',
+        './img/4_enemie_boss_neuron/1_walk/G6.png',
     ];
 
     IMAGES_DEAD = [
-        '../img/4_enemie_boss_neuron/5_dead/G1.png',
-        '../img/4_enemie_boss_neuron/5_dead/G2.png',
-        '../img/4_enemie_boss_neuron/5_dead/G3.png',
-        '../img/4_enemie_boss_neuron/5_dead/G4.png',
-        '../img/4_enemie_boss_neuron/5_dead/G5.png'
+        './img/4_enemie_boss_neuron/5_dead/G1.png',
+        './img/4_enemie_boss_neuron/5_dead/G2.png',
+        './img/4_enemie_boss_neuron/5_dead/G3.png',
+        './img/4_enemie_boss_neuron/5_dead/G4.png',
+        './img/4_enemie_boss_neuron/5_dead/G5.png'
     ];
 
     IMAGES_HURT = [
-        '../img/4_enemie_boss_neuron/4_hurt/G1.png',
-        '../img/4_enemie_boss_neuron/4_hurt/G2.png'
+        './img/4_enemie_boss_neuron/4_hurt/G1.png',
+        './img/4_enemie_boss_neuron/4_hurt/G2.png'
     ];
 
     IMAGES_ATTACK = [
-        '../img/4_enemie_boss_neuron/3_attack/G1.png',
-        '../img/4_enemie_boss_neuron/3_attack/G2.png',
-        '../img/4_enemie_boss_neuron/3_attack/G3.png',
-        '../img/4_enemie_boss_neuron/3_attack/G4.png'
+        './img/4_enemie_boss_neuron/3_attack/G1.png',
+        './img/4_enemie_boss_neuron/3_attack/G2.png',
+        './img/4_enemie_boss_neuron/3_attack/G3.png',
+        './img/4_enemie_boss_neuron/3_attack/G4.png'
     ];
 
     IMAGES_IDLE = [
-        '../img/4_enemie_boss_neuron/6_idle/G1.png',
-        '../img/4_enemie_boss_neuron/6_idle/G2.png',
-        '../img/4_enemie_boss_neuron/6_idle/G3.png',
-        '../img/4_enemie_boss_neuron/6_idle/G4.png'
+        './img/4_enemie_boss_neuron/6_idle/G1.png',
+        './img/4_enemie_boss_neuron/6_idle/G2.png',
+        './img/4_enemie_boss_neuron/6_idle/G3.png',
+        './img/4_enemie_boss_neuron/6_idle/G4.png'
     ];
 
     constructor() {

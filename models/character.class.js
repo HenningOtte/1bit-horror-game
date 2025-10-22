@@ -10,42 +10,42 @@ class Character extends MoveableObject {
         bottom: 5
     };
     IMAGES_WALKING = [
-        '../img/2_character_jimmy/2_walk/1.png',
-        '../img/2_character_jimmy/2_walk/2.png',
-        '../img/2_character_jimmy/2_walk/3.png',
-        '../img/2_character_jimmy/2_walk/4.png',
-        '../img/2_character_jimmy/2_walk/5.png',
-        '../img/2_character_jimmy/2_walk/6.png'
+        './img/2_character_jimmy/2_walk/1.png',
+        './img/2_character_jimmy/2_walk/2.png',
+        './img/2_character_jimmy/2_walk/3.png',
+        './img/2_character_jimmy/2_walk/4.png',
+        './img/2_character_jimmy/2_walk/5.png',
+        './img/2_character_jimmy/2_walk/6.png'
     ];
     IMAGES_JUMPING = [
-        '../img/2_character_jimmy/3_jump/1.png',
-        '../img/2_character_jimmy/3_jump/2.png',
-        '../img/2_character_jimmy/3_jump/3.png',
-        '../img/2_character_jimmy/3_jump/4.png'
+        './img/2_character_jimmy/3_jump/1.png',
+        './img/2_character_jimmy/3_jump/2.png',
+        './img/2_character_jimmy/3_jump/3.png',
+        './img/2_character_jimmy/3_jump/4.png'
     ];
     IMAGES_HURT = [
-        '../img/2_character_jimmy/4_hurt/1.png',
-        '../img/2_character_jimmy/4_hurt/2.png'
+        './img/2_character_jimmy/4_hurt/1.png',
+        './img/2_character_jimmy/4_hurt/2.png'
     ];
     IMAGES_DEAD = [
-        '../img/2_character_jimmy/5_dead/1.png',
-        '../img/2_character_jimmy/5_dead/2.png',
-        '../img/2_character_jimmy/5_dead/3.png',
-        '../img/2_character_jimmy/5_dead/4.png',
-        '../img/2_character_jimmy/5_dead/5.png'
+        './img/2_character_jimmy/5_dead/1.png',
+        './img/2_character_jimmy/5_dead/2.png',
+        './img/2_character_jimmy/5_dead/3.png',
+        './img/2_character_jimmy/5_dead/4.png',
+        './img/2_character_jimmy/5_dead/5.png'
     ];
     IMAGES_IDLE = [
-        'img/2_character_jimmy/1_idle/1.png',
-        'img/2_character_jimmy/1_idle/2.png',
-        'img/2_character_jimmy/1_idle/3.png',
-        'img/2_character_jimmy/1_idle/4.png',
-        'img/2_character_jimmy/1_idle/5.png'
+        './img/2_character_jimmy/1_idle/1.png',
+        './img/2_character_jimmy/1_idle/2.png',
+        './img/2_character_jimmy/1_idle/3.png',
+        './img/2_character_jimmy/1_idle/4.png',
+        './img/2_character_jimmy/1_idle/5.png'
     ];
     world;
 
     constructor() {
         super();
-        this.loadImage('../img/2_character_jimmy/2_walk/1.png');
+        this.loadImage('./img/2_character_jimmy/2_walk/1.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_HURT);

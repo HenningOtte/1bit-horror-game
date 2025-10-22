@@ -23,16 +23,16 @@ const Game = {
         keyboard: null,
     },
     music: {
-        bgMusic: new Audio('../audio/Horror_Music_8bit.mp3'),
+        bgMusic: new Audio('./audio/Horror_Music_8bit.mp3'),
     },
     sounds: {
-        coinSound: new Audio('../audio/coin.mp3'),
-        jumpOn: new Audio('../audio/jump_on.mp3'),
-        shoot: new Audio('../audio/shoot.mp3'),
-        hurt: new Audio('../audio/hurt.mp3'),
-        dying: new Audio('../audio/dying.mp3'),
-        playerHurt: new Audio('../audio/player_hurt.mp3'),
-        skeleton_dead: new Audio('../audio/skeleton_dead.mp3'),
+        coinSound: new Audio('./audio/coin.mp3'),
+        jumpOn: new Audio('./audio/jump_on.mp3'),
+        shoot: new Audio('./audio/shoot.mp3'),
+        hurt: new Audio('./audio/hurt.mp3'),
+        dying: new Audio('./audio/dying.mp3'),
+        playerHurt: new Audio('./audio/player_hurt.mp3'),
+        skeleton_dead: new Audio('./audio/skeleton_dead.mp3'),
     },
 
     playMusic() {
