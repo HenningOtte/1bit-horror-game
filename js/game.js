@@ -152,10 +152,10 @@ function fullscreen() {
         return;
     }
     if (!canEnterFullscreen()) {
-        openWarning();
+        openElement('landscape-warning');
         return;
     }
-    hideWarning();
+    closeElement('landscape-warning');
     enterFullscreen(Game.refs.ids.fs);
 }
 
@@ -163,16 +163,20 @@ function canEnterFullscreen() {
     return window.innerWidth > window.innerHeight;
 }
 
-function openWarning() {
-    const el = document.getElementById('landscape');
+function openElement(id) {
+    const el = document.getElementById(id);
     el.classList.remove('hidden');
-    requestAnimationFrame(() => el.style.opacity = 1);
+    setTimeout(() => {
+        el.style.opacity = 1;
+    }, 100);
 }
 
-function hideWarning() {
-    const el = document.getElementById('landscape');
+function closeElement(id) {
+    const el = document.getElementById(id);
     el.style.opacity = 0;
-    setTimeout(() => el.classList.add('hidden'), 150);
+    setTimeout(() => {
+        el.classList.add('hidden')
+    }, 100);
 }
 
 function exitFullscreen() {
@@ -183,12 +187,6 @@ function exitFullscreen() {
     } else if (document.webkitExitFullscreen) {
         document.webkitExitFullscreen();
     }
-}
-
-function closeWarning() {
-    const landscape = document.getElementById('landscape');
-    landscape.style.opacity = 0;
-    setTimeout(() => landscape.classList.add('hidden'), 100);
 }
 
 function enterFullscreen(element) {

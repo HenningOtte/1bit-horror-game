@@ -33,9 +33,9 @@
         </div>
     </div>
 
-    <div class="landscape hidden" id="landscape">
+    <div class="landscape-warning hidden" id="landscape-warning">
         <p>Fullscreen is only available in landscape mode.</p>
-        <button onclick="closeWarning()">X</button>
+        <button class="btn-warning" onclick="closeElement('landscape-warning')"></button>
     </div>
 
     <div class="frame" id="fs">
@@ -53,7 +53,11 @@
 
         <div class="menu" id="menu">
             <button class="btn-menu start" id="start-btn" onclick="startGame()"></button>
-            <button class="btn-menu controls" id="controls-btn" onclick=""></button>
+            <button class="btn-menu controls" id="controls-btn" onclick="openElement('controls-wrapper')"></button>
+        </div>
+
+        <div class="controls-wrapper hidden" id="controls-wrapper">
+            <button class="btn-warning" onclick="closeElement('controls-wrapper')"></button>
         </div>
 
         <div class="btns-mobile-wrapper" id="hud">
