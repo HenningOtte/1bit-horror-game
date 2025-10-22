@@ -13,7 +13,7 @@
 }
 
 body {
-    /* overflow: hidden; */
+    overflow: hidden;
     background-color: black;
     background-image: url('./img/5_background/background_pattern.png');
     display: flex;
@@ -23,10 +23,58 @@ body {
 
 .frame {
     position: relative;
-    aspect-ratio: 3 / 2;
+    aspect-ratio: 3 / 2 !important;
     max-width: 720px;
     outline: 10px solid black;
     top: 60px;
+}
+
+canvas {
+    aspect-ratio: 3 / 2 !important;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: black;
+}
+
+.rotate-warning {
+    position: absolute;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    text-align: center;
+    backdrop-filter: blur(2px);
+    padding: 1.25rem 1.5rem;
+}
+
+.rotate-card .icon {
+    font-size: 2rem;
+    margin-bottom: .5rem;
+}
+
+@media (orientation: portrait) and (hover: none) and (pointer: coarse) {
+    .rotate-warning {
+        display: flex;
+    }
+}
+
+.landscape {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 1.25rem 1.5rem;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.25s;
 }
 
 .game-result_wrapper {
@@ -206,14 +254,6 @@ body {
     background-image: url('./img/1_icons/menu_controls.png');
 }
 
-canvas {
-    background-color: #b3afbb;
-    display: block;
-    width: 100%;
-    height: 100%;
-    background-color: black;
-}
-
 .hidden {
     display: none !important;
 }
@@ -247,7 +287,7 @@ canvas {
 
 @media only screen and (max-height: 760px) {
     .frame {
-        width: 100%;        
+        width: 100%;
         top: 0;
     }
 }
@@ -255,7 +295,7 @@ canvas {
 @media only screen and (max-height: 480px) {
     .frame {
         height: 100vh;
-        top: 0; 
+        top: 0;
     }
 }
 

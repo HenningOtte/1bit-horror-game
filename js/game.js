@@ -146,31 +146,59 @@ function startGame() {
 }
 
 function fullscreen() {
-    Game.refs.ids.controls
-    if (!Game.state.isFullscreen) {
-        Game.state.isFullscreen = true;
-        enterFullscreen(Game.refs.ids.fs);
-    } else {
-        Game.state.isFullscreen = false;
-        exitFullscreen()
+    const active = document.fullscreenElement || document.webkitFullscreenElement;
+    if (active) {
+        exitFullscreen();
+        return;
+    }
+    if (!canEnterFullscreen()) {
+        openWarning();
+        return;
+    }
+    hideWarning();
+    enterFullscreen(Game.refs.ids.fs);
+}
+
+function canEnterFullscreen() {
+    return window.innerWidth > window.innerHeight;
+}
+
+function openWarning() {
+    const el = document.getElementById('landscape');
+    el.classList.remove('hidden');
+    requestAnimationFrame(() => el.style.opacity = 1);
+}
+
+function hideWarning() {
+    const el = document.getElementById('landscape');
+    el.style.opacity = 0;
+    setTimeout(() => el.classList.add('hidden'), 150);
+}
+
+function exitFullscreen() {
+    const active = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!active) return;
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
     }
 }
 
+function closeWarning() {
+    const landscape = document.getElementById('landscape');
+    landscape.style.opacity = 0;
+    setTimeout(() => landscape.classList.add('hidden'), 100);
+}
+
 function enterFullscreen(element) {
+    if (!element) return;
     if (element.requestFullscreen) {
         element.requestFullscreen();
     } else if (element.msRequestFullscreen) {
         element.msRequestFullscreen();
     } else if (element.webkitRequestFullscreen) {
         element.webkitRequestFullscreen();
-    }
-}
-
-function exitFullscreen() {
-    if (document.exitFullscreen) {
-        document.exitFullscreen();
-    } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
     }
 }
 

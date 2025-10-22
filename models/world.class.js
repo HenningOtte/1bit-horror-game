@@ -63,10 +63,10 @@ class World {
     checkPlayerPosition() {
         const boss = this.getEndboss();
         if (boss.firstContact) return;
-        if (this.character.x >= 1900) {
+        if (this.character.x >= boss.triggerX) {
             boss.firstContact = true;
         }
-    }    
+    }
 
     chechTrowObjects() {
         if (this.keyboard.D && this.character.canThrow()) {

@@ -6,6 +6,12 @@ function initLevel() {
             new Skeleton(),
             new Skeleton(),
             new Skeleton(),
+            new Skeleton(),
+            new Skeleton(),
+            new Skeleton(),
+            new Skeleton(),
+            new Skeleton(),
+            new Skeleton(),
             new Endboss()
         ],
         [
@@ -48,6 +54,10 @@ function initLevel() {
             new BackgroundObject(`../img/5_background/layers/3_third_Layer/1.png`, 719 * 3),
             new BackgroundObject(`../img/5_background/layers/2_second_Layer/1.png`, 719 * 3),
             new BackgroundObject(`../img/5_background/layers/1_first_Layer/1.png`, 719 * 3),
+
+            new BackgroundObject(`../img/5_background/layers/3_third_Layer/2.png`, 719 * 4),
+            new BackgroundObject(`../img/5_background/layers/2_second_Layer/2.png`, 719 * 4),
+            new BackgroundObject(`../img/5_background/layers/1_first_Layer/2.png`, 719 * 4),
         ],
         [
             new Coin(),
@@ -68,7 +78,10 @@ function initLevel() {
             new FireballItem(),
             new FireballItem(),
             new FireballItem(),
-            new FireballItem()
+            new FireballItem(),            
+            new FireballItem(),            
+            new FireballItem(),
+            new FireballItem(),
         ]
     );
 

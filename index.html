@@ -26,9 +26,19 @@
 </head>
 
 <body onload="init()">
-    <div class="frame" id="fs">
-        <div class="warning"></div>
 
+    <div class="rotate-warning">
+        <div class="rotate-card">
+            <p>Please rotate your device. For the best experience, play in landscape.</p>
+        </div>
+    </div>
+
+    <div class="landscape hidden" id="landscape">
+        <p>Fullscreen is only available in landscape mode.</p>
+        <button onclick="closeWarning()">X</button>
+    </div>
+
+    <div class="frame" id="fs">
         <div class="sound-screen-controlls">
             <button class="controlls resize" id="btn-fs" onclick="fullscreen()" aria-label="Fullscreen"></button>
             <button class="controlls mute" id="sound-btn" onclick="toggleMusic()" aria-label="Fullscreen"></button>

@@ -18,7 +18,7 @@ class FireballItem extends MoveableObject {
         super();
         this.loadImage('../img/6_fireball/1.png');
         this.loadImages(this.IMAGES_FIREBALL);
-        this.x = 400 + Math.random() * 1500;
+        this.x = 400 + Math.random() * 2000;
         this.animate();
     }
 
