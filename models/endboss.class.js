@@ -86,9 +86,7 @@ class Endboss extends MoveableObject {
         if (!this.firstContact) return;
 
         if (this.isDead() || target.isDead()) {
-            this.attack = false;
-            this.moving = false;
-            this.active = false;
+            this.stopBehavior();
             return;
         }
 
@@ -110,5 +108,11 @@ class Endboss extends MoveableObject {
 
         this.attack = false;
         this.moving = directionX !== 0;
+    }
+
+    stopBehavior() {
+        this.attack = false;
+        this.moving = false;
+        this.active = false;
     }
 }

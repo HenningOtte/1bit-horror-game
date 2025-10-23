@@ -39,10 +39,15 @@ const Game = {
         this.music.bgMusic.loop = true;
         this.music.bgMusic.volume = 0.6;
         this.music.bgMusic.play();
+        
+        if (this.checkLocalStorage() == false) return;
+        let myState = this.importLocalState();
+        this.music.bgMusic.currentTime = myState.audio.bg.currentTime;
     },
 
     pauseMusic() {
         this.music.bgMusic.pause();
+        this.saveToLocal();
     },
 
     playSoundEffect(sound, replay = true) {
@@ -58,6 +63,22 @@ const Game = {
             }
         }
         sound.play();
+    },
+
+    saveToLocal() {
+        let time = this.music.bgMusic.currentTime;
+        let saveLocal = localStorage.setItem("myState", JSON.stringify(new State(time)));
+    },
+
+    importLocalState() {     
+        let myState = JSON.parse(localStorage.getItem('myState'));
+        return myState
+    },
+
+    checkLocalStorage() {
+        let myState = JSON.parse(localStorage.getItem('myState'));
+        let validate = myState == null || myState.length == 0 ? false : true;
+        return validate;
     },
 
     setStoppableInterval(fn, time) {
@@ -103,12 +124,14 @@ const Game = {
     }
 }
 
+
 function toggleMusic() {
     if (Game.state.isMuted) {
         Game.refs.ids.sound.classList.remove('mute');
         Game.refs.ids.sound.classList.add('unmute');
         Game.state.isMuted = false;
         Game.playMusic();
+
     } else {
         Game.refs.ids.sound.classList.remove('unmute');
         Game.refs.ids.sound.classList.add('mute');

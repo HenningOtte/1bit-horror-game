@@ -180,7 +180,6 @@ class World {
         this.addObjectsToMap(this.level.backgroundObjects);
 
         this.ctx.translate(-this.camera_x, 0);
-        // ----- Space for fixed objects -----
         this.addToMap(this.statusHealth);
         this.addToMap(this.statusCoin);
         this.addToMap(this.statusFire);
@@ -194,8 +193,7 @@ class World {
         this.addObjectsToMap(this.throwableObjects);
 
         this.ctx.translate(-this.camera_x, 0);
-
-        // Draw() called again and again
+        
         let self = this;
         requestAnimationFrame(() => {
             self.draw();

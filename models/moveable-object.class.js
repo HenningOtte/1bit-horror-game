@@ -35,10 +35,6 @@ class MoveableObject extends DrawableObject {
         return timepassed < 0.5;
     }
 
-    isDead() {
-        return this.energy == 0;
-    }
-
     recordThrow() {
         this.lastThrow = new Date().getTime();
     }
@@ -47,6 +43,10 @@ class MoveableObject extends DrawableObject {
         let timepassed = new Date().getTime() - this.lastThrow;
         timepassed = timepassed / 1000;
         return timepassed > 0.5 && this.ammo > 0;
+    }
+
+    isDead() {
+        return this.energy == 0;
     }
 
     applyGravity() {

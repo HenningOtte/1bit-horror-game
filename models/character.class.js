@@ -25,7 +25,10 @@ class Character extends MoveableObject {
     ];
     IMAGES_HURT = [
         './img/2_character_jimmy/4_hurt/1.png',
-        './img/2_character_jimmy/4_hurt/2.png'
+        './img/2_character_jimmy/4_hurt/2.png',
+        './img/2_character_jimmy/4_hurt/3.png',
+        './img/2_character_jimmy/4_hurt/4.png',
+        './img/2_character_jimmy/4_hurt/5.png'
     ];
     IMAGES_DEAD = [
         './img/2_character_jimmy/5_dead/1.png',
@@ -104,6 +107,6 @@ class Character extends MoveableObject {
 
         Game.setStoppableInterval(() => {
             this.startSpriteLoop();
-        }, 100);
+        }, 200);
     }
 }
