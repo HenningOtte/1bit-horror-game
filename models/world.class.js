@@ -260,38 +260,67 @@ class World {
     }
 
     /**
-     * Main render loop: clears canvas, applies camera transform,
-     * draws background, HUD, entities and projectiles, then schedules next frame.
-     * @method draw
-     */
+ * Main render loop for the game world.
+ * 
+ * Clears the canvas, applies the camera transformation, renders
+ * background layers, status bars, entities, and projectiles,
+ * then schedules the next animation frame.
+ * 
+ * @method draw
+ */
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.ctx.translate(this.camera_x, 0);
 
-        this.addObjectsToMap(this.level.clouds);
-        this.addObjectsToMap(this.level.backgroundObjects);
-
+        this.renderBackground();
         this.ctx.translate(-this.camera_x, 0);
-        this.addToMap(this.statusHealth);
-        this.addToMap(this.statusCoin);
-        this.addToMap(this.statusFire);
+        this.renderStatusbars();
         if (this.getEndboss().firstContact) this.addToMap(this.statusEndboss);
         this.ctx.translate(this.camera_x, 0);
-
-        this.addToMap(this.character);
-        this.addObjectsToMap(this.level.coins);
-        this.addObjectsToMap(this.level.fireballs);
-        this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.throwableObjects);
+        this.renderInteractiveObjects();
 
         this.ctx.translate(-this.camera_x, 0);
-        
+
         let self = this;
         requestAnimationFrame(() => {
             self.draw();
         });
     }
+
+    /**
+     * Renders background layers such as clouds and distant scenery.
+     * @method renderBackground
+     */
+    renderBackground() {
+        this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.level.backgroundObjects);
+    }
+
+    /**
+     * Renders all status bars (health, coins, fire, and optionally endboss bar).
+     * Keeps the HUD fixed to the screen position (not camera-relative).
+     * @method renderStatusbars
+     */
+    renderStatusbars() {
+        this.addToMap(this.statusHealth);
+        this.addToMap(this.statusCoin);
+        this.addToMap(this.statusFire);
+    }
+
+    /**
+     * Renders all active, interactive game objects such as the player,
+     * collectibles, enemies, and projectiles.
+     * @method renderInteractiveObjects
+     */
+    renderInteractiveObjects() {
+        this.addToMap(this.character);
+        this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.level.fireballs);
+        this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.throwableObjects);
+    }
+
 
     /**
      * Adds multiple drawable/moveable objects to the render map.
