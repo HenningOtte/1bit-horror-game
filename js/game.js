@@ -37,8 +37,13 @@ function startGame() {
     if (Game.state.gameStarted) return;
     Game.state.gameStarted = true;
     Game.refs.ids.menu.classList.add('hidden');
+    toggleMobileBtns();
     initLevel();
     Game.systems.world = new World(Game.refs.canvas, Game.systems.keyboard);
+}
+
+function toggleMobileBtns() {
+    Game.refs.ids.hud.classList.toggle('hidden');
 }
 
 function fullscreen() {

@@ -8,6 +8,7 @@
     <link rel="icon" type="image/png" href="./img/10_favicon/favicon.png" sizes="32x32">
     <link rel="stylesheet" href="./styles/animations-keyframes.css">
     <link rel="stylesheet" href="./style.css">
+    <script src="./js/templates.js"></script>
     <script src="./models/drawable-object.class.js"></script>
     <script src="./models/moveable-object.class.js"></script>
     <script src="./models/character.class.js"></script>
@@ -29,7 +30,6 @@
 </head>
 
 <body onload="init()">
-
     <div class="rotate-warning">
         <div class="rotate-card">
             <p>Please rotate your device. For the best experience, play in landscape.</p>
@@ -57,13 +57,14 @@
         <div class="menu" id="menu">
             <button class="btn-menu start" id="start-btn" onclick="startGame()"></button>
             <button class="btn-menu controls" id="controls-btn" onclick="openElement('controls-wrapper')"></button>
+            <button class="btn-LN" onclick="openElement('legal-notice')">Legal Notice</button>
         </div>
 
         <div class="controls-wrapper hidden" id="controls-wrapper">
             <button class="btn-warning" onclick="closeElement('controls-wrapper')"></button>
         </div>
 
-        <div class="btns-mobile-wrapper" id="hud">
+        <div class="btns-mobile-wrapper hidden" id="hud">
             <div class="panel-wrapper-left" id="btns-mobile-move">
                 <button class="controlls arrow-left" id="btn-left"></button>
                 <button class="controlls arrow-right" id="btn-right"></button>
@@ -72,6 +73,25 @@
                 <button class="controlls arrow-jump" id="btn-jump"></button>
                 <button class="controlls btn-shoot" id="btn-shoot"></button>
             </div>
+        </div>
+        <div class="legal-notive hidden" id="legal-notice">
+            <div class="notice-wrapper">
+                <h2>Legal Notice</h2>
+                <p>
+                    This Legal Notice applies to all offers under the domain
+                    <a
+                        href="https://henning-otte.developerakademie.net/1bit-horror-game/index.html">1bit-horror-game</a>
+                    including all subdomains (subpages).
+                </p>
+                <p>Information pursuant § 5 DDG</p>
+                <p>
+                    Henning Otte
+                    Steinberg 31
+                    31832
+                    E-Mail: HenningOtte91@gmail.com
+                </p>
+            </div>
+            <button class="btn-warning" onclick="closeElement('legal-notice')"></button>
         </div>
         <canvas id="canvas" width="720" height="480"></canvas>
     </div>

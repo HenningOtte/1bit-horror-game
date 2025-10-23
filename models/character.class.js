@@ -107,6 +107,6 @@ class Character extends MoveableObject {
 
         Game.setStoppableInterval(() => {
             this.startSpriteLoop();
-        }, 200);
+        }, 100);
     }
 }

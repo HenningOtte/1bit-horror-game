@@ -114,6 +114,7 @@ const Game = {
 
     stopGame() {
         this.systems.intervalIDs.forEach(clearInterval);
+        toggleMobileBtns();
     },
 
     gameover() {
