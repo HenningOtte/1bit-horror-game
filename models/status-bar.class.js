@@ -1,3 +1,12 @@
+/**
+ * Represents a status bar element (health, coins, fire, or endboss).
+ * 
+ * The status bar displays a percentage value visually using
+ * pre-defined image variants based on its type.
+ * 
+ * Extends {@link DrawableObject} to draw the correct image on the canvas.
+ * @extends DrawableObject
+ */
 class StatusBar extends DrawableObject {
     BAR_VARIANTS = {
         health: [
@@ -48,17 +57,32 @@ class StatusBar extends DrawableObject {
         this.setPercentage(percent);
     }
 
+    /**
+     * Loads the correct image set for the selected variant
+     * (health, coin, fire, or endboss).
+     * @method setVariant
+     */
     setVariant() {
         let images = this.BAR_VARIANTS[this.variant];
         this.loadImages(images);
     }
 
+    /**
+     * Updates the displayed bar image based on the given percentage.
+     * @method setPercentage
+     * @param {number} percent - The new percentage value (0–100).
+     */
     setPercentage(percent) {
         this.percentage = percent;        
         let path = this.BAR_VARIANTS[this.variant][this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
 
+    /**
+     * Resolves which image index corresponds to the current percentage.
+     * @method resolveImageIndex
+     * @returns {number} The index of the correct image variant.
+     */
     resolveImageIndex() {        
         if (this.percentage >= 100) {
             return 5;

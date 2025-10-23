@@ -1,3 +1,11 @@
+/**
+ * Represents a collectible fireball item that grants ammo to the player.
+ * 
+ * The fireball item continuously animates by cycling through sprite frames.
+ * When collected, it increases the player’s fireball ammunition.
+ * Inherits rendering and animation functionality from {@link MoveableObject}.
+ * @extends MoveableObject
+ */
 class FireballItem extends MoveableObject {
     y = 330;
     width = 16 * 2;
@@ -22,6 +30,11 @@ class FireballItem extends MoveableObject {
         this.animate();
     }
 
+    /**
+     * Starts the fireball item animation loop.
+     * Cycles through sprite frames at 10 frames per second.
+     * @method animate
+     */
     animate() {
         Game.setStoppableInterval(() => {
             this.playAnimation(this.IMAGES_FIREBALL);

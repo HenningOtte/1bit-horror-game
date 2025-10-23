@@ -1,3 +1,9 @@
+/**
+ * Represents the final boss enemy in the game.
+ * Handles sprite animation, attack behavior, and movement toward the player.
+ * Inherits movement and collision logic from {@link MoveableObject}.
+ * @extends MoveableObject
+ */
 class Endboss extends MoveableObject {
     y = 134;
     x = 3200;
@@ -8,6 +14,10 @@ class Endboss extends MoveableObject {
     energy = 100;
     triggerX = 2700;
 
+    /**
+     * Collision offset for hitbox detection.
+     * @type {{top: number, left: number, right: number, bottom: number}}
+     */
     offset = {
         top: 68,
         left: 70,
@@ -62,6 +72,11 @@ class Endboss extends MoveableObject {
         this.animate();
     };
 
+    /**
+     * Determines and plays the correct animation sequence based on
+     * the boss's current state (dead, hurt, attacking, idle, or walking).
+     * @method startSpriteLoop
+     */
     startSpriteLoop() {
         if (this.isDead()) {
             this.playAnimation(this.IMAGES_DEAD, false);
@@ -76,12 +91,24 @@ class Endboss extends MoveableObject {
         }
     };
 
+    /**
+     * Starts the sprite animation loop for the boss.
+     * Updates animation frames approximately every 240 ms.
+     * @method animate
+     */
     animate() {
         Game.setStoppableInterval(() => {
             this.startSpriteLoop();
         }, 240)
     }
 
+    /**
+     * Updates the boss's movement and behavior based on the target (player) position.
+     * Handles attacking, chasing, and stopping logic.
+     *
+     * @method updateEndbossBehavior
+     * @param {MoveableObject} target - The player or target entity to chase/attack.
+     */
     updateEndbossBehavior(target) {
         if (!this.firstContact) return;
 
@@ -110,6 +137,11 @@ class Endboss extends MoveableObject {
         this.moving = directionX !== 0;
     }
 
+    /**
+     * Stops all boss actions (attack and movement) and sets it inactive.
+     * Typically used after death or player defeat.
+     * @method stopBehavior
+     */
     stopBehavior() {
         this.attack = false;
         this.moving = false;

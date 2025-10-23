@@ -1,3 +1,10 @@
+/**
+ * Represents a throwable fireball object.
+ * 
+ * Inherits physics, gravity, and animation behavior from {@link MoveableObject}.
+ * The fireball can be thrown in a given direction and moves with simple drag-based deceleration.
+ * @extends MoveableObject
+ */
 class ThrowableObject extends MoveableObject {
     speedX = 0;
     dragX = 0.55;
@@ -24,6 +31,15 @@ class ThrowableObject extends MoveableObject {
         this.throw(x, y, direction);
     }
 
+    /**
+     * Throws the fireball in the given direction.
+     * Applies gravity and horizontal motion.
+     * 
+     * @method throw
+     * @param {number} x - Initial X position of the fireball.
+     * @param {number} y - Initial Y position of the fireball.
+     * @param {number} direction - Direction multiplier (1 for right, -1 for left).
+     */
     throw(x, y, direction) {
         this.x = x;
         this.y = y;
@@ -35,6 +51,10 @@ class ThrowableObject extends MoveableObject {
         }, 25);
     }
 
+    /**
+     * Applies horizontal friction (drag) to gradually slow down the fireball.
+     * @method applyFriction
+     */
     applyFriction() {
         Game.setStoppableInterval(() => {
             this.x += this.speedX;
