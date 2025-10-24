@@ -35,6 +35,16 @@ body {
     top: 60px;
 }
 
+.color-filter {
+    position: absolute;
+    inset: 0;
+    background-color: #9dff00;
+    z-index: 10;
+    mix-blend-mode: multiply;
+    opacity: 0.35;
+    pointer-events: none; 
+}
+
 canvas {
     aspect-ratio: 3 / 2 !important;
     display: block;
