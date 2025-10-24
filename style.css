@@ -24,7 +24,7 @@ body {
     background-image: url('./img/5_background/background_pattern.png');
     display: flex;
     justify-content: center;
-    align-items: center
+    align-items: center;
 }
 
 .frame {
@@ -42,7 +42,7 @@ body {
     z-index: 10;
     mix-blend-mode: multiply;
     opacity: 0.35;
-    pointer-events: none; 
+    pointer-events: none;
 }
 
 canvas {
@@ -267,6 +267,11 @@ canvas {
     color: white;
     background-color: transparent;
     background-size: 100% 100%;
+    transition: transform 0.15s ease;
+}
+
+.btn-menu:hover {
+    transform: scale(105%);
 }
 
 .btn-LN {
@@ -276,10 +281,11 @@ canvas {
     border: none;
     color: black;
     cursor: pointer;
+    transition: transform 0.15s ease;
 }
 
 .btn-LN:hover {
-    color: red;
+    transform: scale(110%);
 }
 
 .start {
