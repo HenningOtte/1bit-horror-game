@@ -89,12 +89,13 @@ const Game = {
         this.music.bgMusic.volume = 0.6;
         this.music.bgMusic.play();
 
-        if (this.checkLocalStorage() == false) {
+        if (!this.checkLocalStorage()) {
             this.saveToLocal();
             return;
         } else {
             this.updateBgMusicTime();
             this.autoLocalStorageUpdate();
+            this.saveToLocal();
         }
     },
 
@@ -109,6 +110,31 @@ const Game = {
     },
 
     /**
+     * Restores and plays background music based on the saved Local Storage state.
+     * If music was unmuted before, it starts playback and updates the UI button.
+     * @returns {void}
+     */
+
+    initializeMusicFromStorage() {
+        let myState = this.importLocalState();
+
+        if (!this.checkLocalStorage() || myState.audio.bg.isMuted || this.isMusicIntervalActive()) return;
+        this.state.isMuted = false;
+        this.playMusic();
+        this.refs.ids.sound.classList.remove('mute');
+        this.refs.ids.sound.classList.add('unmute');
+    },
+
+    /**
+     * Checks whether the music auto-save interval is currently active.
+     * @returns {boolean} True if the music interval is active, otherwise false.
+     */
+
+    isMusicIntervalActive() {
+        return this.systems.intervalAutoSave > 0;
+    },
+
+    /**
      * Starts the autosave interval which periodically saves
      * the current playback time to localStorage.
      * @function
@@ -117,7 +143,7 @@ const Game = {
         if (this.state.autoSave) return;
         this.systems.intervalAutoSave = setInterval(() => {
             this.saveToLocal();
-        }, 2000);
+        }, 1000);
         this.state.autoSave = true;
     },
 
@@ -141,7 +167,6 @@ const Game = {
             this.systems.intervalAutoSave = null;
         }
         this.state.autoSave = false;
-        console.log(this.systems.intervalAutoSave);
     },
 
     /**
@@ -173,7 +198,8 @@ const Game = {
      */
     saveToLocal() {
         let time = this.music.bgMusic.currentTime;
-        let saveLocal = localStorage.setItem("myState", JSON.stringify(new State(time)));
+        let muted = this.state.isMuted;
+        let saveLocal = localStorage.setItem("myState", JSON.stringify(new State(time, muted)));
     },
 
     /**

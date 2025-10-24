@@ -1,20 +1,33 @@
 /**
- * Represents the main controllable character of the game.
+ * @class Character
+ * @classdesc Represents the main controllable character of the game.
  * Handles movement, animation states, and gravity.
  * Inherits core movement and physics from {@link MoveableObject}.
  * @extends MoveableObject
  */
 class Character extends MoveableObject {
-    /** @type {number} Character height in pixels. */
+    /** 
+     * Character height in pixels. 
+     * @type {number} 
+     */
     height = 72 * 2;
 
-    /** @type {number} Character width in pixels. */
+    /** 
+     * Character width in pixels. 
+     * @type {number} 
+     */
     width = 64 * 2;
 
-    /** @type {number} Initial vertical position. */
+    /** 
+     * Initial vertical position (Y-axis). 
+     * @type {number} 
+     */
     y = 244;
 
-    /** @type {number} Horizontal movement speed. */
+    /** 
+     * Horizontal movement speed of the character. 
+     * @type {number} 
+     */
     speed = 10;
 
     /**
@@ -28,7 +41,10 @@ class Character extends MoveableObject {
         bottom: 5
     };
 
-    /** @type {string[]} Image paths for walking animation. */
+    /** 
+     * Image paths for walking animation frames. 
+     * @type {string[]} 
+     */
     IMAGES_WALKING = [
         './img/2_character_jimmy/2_walk/1.png',
         './img/2_character_jimmy/2_walk/2.png',
@@ -38,7 +54,10 @@ class Character extends MoveableObject {
         './img/2_character_jimmy/2_walk/6.png'
     ];
 
-    /** @type {string[]} Image paths for jumping animation. */
+    /** 
+     * Image paths for jumping animation frames. 
+     * @type {string[]} 
+     */
     IMAGES_JUMPING = [
         './img/2_character_jimmy/3_jump/1.png',
         './img/2_character_jimmy/3_jump/2.png',
@@ -46,7 +65,10 @@ class Character extends MoveableObject {
         './img/2_character_jimmy/3_jump/4.png'
     ];
 
-    /** @type {string[]} Image paths for hurt animation. */
+    /** 
+     * Image paths for hurt animation frames. 
+     * @type {string[]} 
+     */
     IMAGES_HURT = [
         './img/2_character_jimmy/4_hurt/1.png',
         './img/2_character_jimmy/4_hurt/2.png',
@@ -55,7 +77,10 @@ class Character extends MoveableObject {
         './img/2_character_jimmy/4_hurt/5.png'
     ];
 
-    /** @type {string[]} Image paths for death animation. */
+    /** 
+     * Image paths for death animation frames. 
+     * @type {string[]} 
+     */
     IMAGES_DEAD = [
         './img/2_character_jimmy/5_dead/1.png',
         './img/2_character_jimmy/5_dead/2.png',
@@ -64,7 +89,10 @@ class Character extends MoveableObject {
         './img/2_character_jimmy/5_dead/5.png'
     ];
 
-    /** @type {string[]} Image paths for idle animation. */
+    /** 
+     * Image paths for idle animation frames. 
+     * @type {string[]} 
+     */
     IMAGES_IDLE = [
         './img/2_character_jimmy/1_idle/1.png',
         './img/2_character_jimmy/1_idle/2.png',
@@ -73,7 +101,10 @@ class Character extends MoveableObject {
         './img/2_character_jimmy/1_idle/5.png'
     ];
 
-    /** @type {World} Reference to the active world instance. */
+    /** 
+     * Reference to the active {@link World} instance. 
+     * @type {World} 
+     */
     world;
 
     /**
@@ -96,38 +127,46 @@ class Character extends MoveableObject {
     /**
      * Handles keyboard input and character movement logic.
      * Moves left/right and triggers jump if applicable.
-     * Updates the camera position based on the character's X position.
+     * Updates the camera position based on the character’s X-position.
      * @method startControlLoop
      */
     startControlLoop() {
-        if (
-            this.world.keyboard.RIGHT &&
-            this.x < this.world.level.level_end_x &&
-            !this.isDead()
-        ) {
+        if (this.shouldMoveRight()) {
             this.moveRight();
             this.otherDirection = false;
         }
-
-        if (
-            this.world.keyboard.LEFT &&
-            this.x > 0 &&
-            !this.isDead()
-        ) {
+        if (this.shouldMoveLeft()) {
             this.moveLeft();
             this.otherDirection = true;
         }
-
-        if (
-            this.world.keyboard.SPACE &&
-            !this.isAboveGround() &&
-            !this.isDead()
-        ) {
+        if (this.shouldJump()) {
             this.jump();
         }
-
-        // Update camera position relative to the character
         this.world.camera_x = -this.x + 100;
+    }
+
+    /**
+    * Checks if the character should move right.
+    * @returns {boolean}
+    */
+    shouldMoveRight() {
+        return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !this.isDead();
+    }
+
+    /**
+    * Checks if the character should move left.
+    * @returns {boolean}
+    */
+    shouldMoveLeft() {
+        return this.world.keyboard.LEFT && this.x > 0 && !this.isDead();
+    }
+
+    /**
+    * Checks if the character should jump.
+    * @returns {boolean}
+    */
+    shouldJump() {
+        return this.world.keyboard.SPACE && !this.isAboveGround() && !this.isDead();
     }
 
     /**
@@ -154,16 +193,11 @@ class Character extends MoveableObject {
     /**
      * Initializes the animation and control loops.
      * - Control loop runs at 60 FPS.
-     * - Sprite loop runs every 100 ms.
+     * - Sprite loop updates every 100 ms.
      * @method animate
      */
     animate() {
-        Game.setStoppableInterval(() => {
-            this.startControlLoop();
-        }, 1000 / 60);
-
-        Game.setStoppableInterval(() => {
-            this.startSpriteLoop();
-        }, 100);
+        Game.setStoppableInterval(() => this.startControlLoop(), 1000 / 60);
+        Game.setStoppableInterval(() => this.startSpriteLoop(), 100);
     }
 }

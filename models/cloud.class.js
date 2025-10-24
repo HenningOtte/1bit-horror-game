@@ -1,12 +1,21 @@
 /**
- * Represents a single cloud object in the background layer.
+ * @class Cloud
+ * @classdesc Represents a single cloud object in the background layer.
  * Clouds continuously move from right to left and loop across the level.
  * Inherits movement logic from {@link MoveableObject}.
  * @extends MoveableObject
  */
 class Cloud extends MoveableObject {
+    /**
+     * Horizontal movement speed of the cloud.
+     * @type {number}
+     */
     speed = 0.6;
-    
+
+    /**
+     * Array of file paths for cloud image variants.
+     * @type {string[]}
+     */
     IMAGES_CLOUDS = [
         './img/5_background/layers/4_clouds/Cloud_1.png',
         './img/5_background/layers/4_clouds/Cloud_2.png',
@@ -34,7 +43,7 @@ class Cloud extends MoveableObject {
 
     /**
      * Starts the movement animation for the cloud.
-     * Moves the cloud left continuously at a fixed frame rate.
+     * Moves the cloud continuously to the left at a fixed frame rate.
      * @method animate
      */
     animate() {

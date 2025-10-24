@@ -57,6 +57,7 @@ function home() {
  */
 function startGame() {
     if (Game.state.gameStarted) return;
+    Game.initializeMusicFromStorage();
     Game.state.gameStarted = true;
     Game.refs.ids.menu.classList.add('hidden');
     toggleMobileBtns();
@@ -106,6 +107,7 @@ function canEnterFullscreen() {
  * @param {string} id - ID of the element to open.
  */
 function openElement(id) {
+    Game.initializeMusicFromStorage();
     const el = document.getElementById(id);
     el.classList.remove('hidden');
     setTimeout(() => {
@@ -215,44 +217,36 @@ window.addEventListener('keyup', (e) => {
 });
 
 /**
- * Sets up mobile touch controls for movement, jump, and shoot actions.
- * Maps touch events to the keyboard control flags used by the game.
- * @function mobileBtns
- */
+* Sets up mobile touch controls for movement, jump, and shoot actions.
+* Maps touch events to the keyboard control flags used by the game.
+* @function mobileBtns
+* @returns {void}
+*/
 function mobileBtns() {
-    document.getElementById('btn-left').addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        Game.systems.keyboard.LEFT = true;
-    });
-    document.getElementById('btn-left').addEventListener('touchend', (e) => {
-        e.preventDefault();
-        Game.systems.keyboard.LEFT = false;
-    });
+    setupTouchControl('btn-left', 'LEFT');
+    setupTouchControl('btn-right', 'RIGHT');
+    setupTouchControl('btn-jump', 'SPACE');
+    setupTouchControl('btn-shoot', 'D');
+}
 
-    document.getElementById('btn-right').addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        Game.systems.keyboard.RIGHT = true;
-    });
-    document.getElementById('btn-right').addEventListener('touchend', (e) => {
-        e.preventDefault();
-        Game.systems.keyboard.RIGHT = false;
-    });
+/**
+ * Attaches touch event listeners to a button element to toggle a keyboard control flag.
+ * Simulates keyboard input by setting the corresponding key state in `Game.systems.keyboard`.
+ *
+ * @function setupTouchControl
+ * @param {string} btnId - The HTML element ID of the button (e.g., 'btn-left').
+ * @param {string} keyFlag - The keyboard flag to toggle (e.g., 'LEFT', 'SPACE').
+ * @returns {void}
+ */
 
-    document.getElementById('btn-jump').addEventListener('touchstart', (e) => {
+function setupTouchControl(btnId, keyFlag) {
+    const btn = document.getElementById(btnId);
+    btn.addEventListener('touchstart', (e) => {
         e.preventDefault();
-        Game.systems.keyboard.SPACE = true;
+        Game.systems.keyboard[keyFlag] = true;
     });
-    document.getElementById('btn-jump').addEventListener('touchend', (e) => {
+    btn.addEventListener('touchend', (e) => {
         e.preventDefault();
-        Game.systems.keyboard.SPACE = false;
+        Game.systems.keyboard[keyFlag] = false;
     });
-
-    document.getElementById('btn-shoot').addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        Game.systems.keyboard.D = true;
-    });
-    document.getElementById('btn-shoot').addEventListener('touchend', (e) => {
-        e.preventDefault();
-        Game.systems.keyboard.D = false;
-    });
-};
+}

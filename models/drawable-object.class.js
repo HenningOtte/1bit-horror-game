@@ -1,16 +1,52 @@
 /**
- * Base class for all drawable game objects.
- * Handles loading, caching and drawing of images on the canvas.
+ * @class DrawableObject
+ * @classdesc Base class for all drawable game objects.
+ * Handles loading, caching, and drawing of images on the canvas.
  * Other visual objects (e.g. {@link Character}, {@link Skeleton}, {@link Endboss})
  * extend from this class to gain rendering functionality.
  */
 class DrawableObject {
+    /**
+     * The image currently assigned to this drawable object.
+     * @type {HTMLImageElement | null}
+     */
     img;
+
+    /**
+     * A cache storing preloaded images, mapped by their file paths.
+     * Used to quickly access animation frames.
+     * @type {Object.<string, HTMLImageElement>}
+     */
     imageCache = {};
+
+    /**
+     * The index of the currently displayed animation frame.
+     * @type {number}
+     */
     currentImage = 0;
+
+    /**
+     * The horizontal position of the object in the game world.
+     * @type {number}
+     */
     x = 0;
+
+    /**
+     * The vertical position of the object in the game world.
+     * @type {number}
+     */
     y = 0;
+
+    /**
+     * The height of the object in pixels.
+     * @type {number}
+     */
     height = 105;
+
+    /**
+     * The width of the object in pixels.
+     * @type {number}
+     */
     width = 78;
 
     /**
@@ -61,7 +97,7 @@ class DrawableObject {
      */
     loadImages(arr) {
         arr.forEach((path) => {
-            let img = new Image();
+            const img = new Image();
             img.src = path;
             this.imageCache[path] = img;
         });

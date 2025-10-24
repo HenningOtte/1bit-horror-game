@@ -378,13 +378,13 @@ canvas {
 .notice-wrapper p {
     margin: 0;
     font-family: 'Roboto';
-    font-size: 12px;
+    font-size: 16px;
     margin-bottom: 8px;
 }
 
 a {
     font-family: 'Roboto';
-    font-size: 12px;
+    font-size: 16px;
     color: white;
     font-weight: 800;
 }

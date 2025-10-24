@@ -9,10 +9,11 @@ class State {
      * Creates a new State instance.
      * @param {number} [time=0] - The current playback time of the background music in seconds.
      */
-    constructor(time = 0) {
+    constructor(time = 0, muted = true) {
         this.audio = {
             bg: {
-                currentTime: time
+                currentTime: time,
+                isMuted: muted,
             }
         };
     }

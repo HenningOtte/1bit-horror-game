@@ -3,18 +3,43 @@
  * Coordinates character, enemies, items, camera, status bars and result screens.
  */
 class World {
+    /** Main controllable player character. @type {Character} */
     character = new Character();
+
+    /** Player's health bar display. @type {StatusBar} */
     statusHealth = new StatusBar(10, 10, 100, 'health');
+
+    /** Coin collection progress bar. @type {StatusBar} */
     statusCoin = new StatusBar(10, 53, 0, 'coin');
+
+    /** Fireball ammo status bar. @type {StatusBar} */
     statusFire = new StatusBar(10, 96, 0, 'fire');
+
+    /** Endboss health status bar. @type {StatusBar} */
     statusEndboss = new StatusBar(268, 53, 100, 'endboss', 188, 60);
+
+    /** Array of active throwable fireball objects. @type {ThrowableObject[]} */
     throwableObjects = [];
+
+    /** List of active interval IDs used for timed updates. @type {number[]} */
     intervalIDs = [];
+
+    /** Currently loaded level configuration. @type {Level} */
     level = level1;
+
+    /** Canvas element where the world is rendered. @type {HTMLCanvasElement} */
     canvas;
+
+    /** Canvas rendering context for drawing. @type {CanvasRenderingContext2D} */
     ctx;
+
+    /** Reference to the keyboard input handler. @type {Keyboard} */
     keyboard;
+
+    /** Horizontal camera offset in the world (for scrolling). @type {number} */
     camera_x = 0;
+
+    /** Whether the game has ended (win or lose). @type {boolean} */
     gameOver = false;
 
     /**

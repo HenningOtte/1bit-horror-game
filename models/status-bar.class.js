@@ -1,5 +1,6 @@
 /**
- * Represents a status bar element (health, coins, fire, or endboss).
+ * @class StatusBar
+ * @classdesc Represents a status bar element (health, coins, fire, or endboss).
  * 
  * The status bar displays a percentage value visually using
  * pre-defined image variants based on its type.
@@ -8,6 +9,10 @@
  * @extends DrawableObject
  */
 class StatusBar extends DrawableObject {
+    /**
+     * Contains file paths for each status bar variant and percentage level.
+     * @type {Object.<string, string[]>}
+     */
     BAR_VARIANTS = {
         health: [
             './img/7_statusbars/2_statusbar_health/0.png',
@@ -43,8 +48,23 @@ class StatusBar extends DrawableObject {
         ]
     };
 
+    /** Current percentage value represented by the bar (0–100). @type {number} */
     percentage = 100;
 
+    /** Type of status bar ('health', 'coin', 'fire', or 'endboss'). @type {string} */
+    variant;
+
+    /**
+     * Creates a new status bar element and initializes its appearance.
+     * 
+     * @constructor
+     * @param {number} x - X position on the canvas.
+     * @param {number} y - Y position on the canvas.
+     * @param {number} [percent=100] - Initial fill percentage (0–100).
+     * @param {'health'|'coin'|'fire'|'endboss'} [variant='health'] - Type of the bar.
+     * @param {number} [width=124] - Bar width in pixels.
+     * @param {number} [height=32] - Bar height in pixels.
+     */
     constructor(x, y, percent = 100, variant = 'health', width = 124, height = 32) {
         super();
         this.x = x;
@@ -63,7 +83,7 @@ class StatusBar extends DrawableObject {
      * @method setVariant
      */
     setVariant() {
-        let images = this.BAR_VARIANTS[this.variant];
+        const images = this.BAR_VARIANTS[this.variant];
         this.loadImages(images);
     }
 
@@ -73,8 +93,8 @@ class StatusBar extends DrawableObject {
      * @param {number} percent - The new percentage value (0–100).
      */
     setPercentage(percent) {
-        this.percentage = percent;        
-        let path = this.BAR_VARIANTS[this.variant][this.resolveImageIndex()];
+        this.percentage = percent;
+        const path = this.BAR_VARIANTS[this.variant][this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
 
@@ -83,19 +103,12 @@ class StatusBar extends DrawableObject {
      * @method resolveImageIndex
      * @returns {number} The index of the correct image variant.
      */
-    resolveImageIndex() {        
-        if (this.percentage >= 100) {
-            return 5;
-        } else if (this.percentage >= 80) {
-            return 4;
-        } else if (this.percentage >= 60) {
-            return 3;
-        } else if (this.percentage >= 40) {
-            return 2;
-        } else if (this.percentage >= 20) {
-            return 1;
-        } else {
-            return 0;
-        }
+    resolveImageIndex() {
+        if (this.percentage >= 100) return 5;
+        if (this.percentage >= 80) return 4;
+        if (this.percentage >= 60) return 3;
+        if (this.percentage >= 40) return 2;
+        if (this.percentage >= 20) return 1;
+        return 0;
     }
 }

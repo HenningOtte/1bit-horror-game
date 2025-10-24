@@ -1,35 +1,74 @@
 /**
- * Represents any object that can move within the game world.
- * 
+ * @class MoveableObject
+ * @classdesc Represents any object that can move within the game world.
+ *
  * Extends {@link DrawableObject} to add movement, gravity, physics,
  * collision detection, and animation capabilities.
- * 
+ *
  * This class is the base for entities like the player, enemies, and throwable objects.
  * @extends DrawableObject
  */
 class MoveableObject extends DrawableObject {
+    /** Horizontal position in the world (px). @type {number} */
     x = 100;
+
+    /** Vertical position in the world (px). @type {number} */
     y = 244;
+
+    /** Currently assigned image element. @type {HTMLImageElement|undefined} */
     img;
+
+    /** Render height (px). @type {number} */
     height = 105;
+
+    /** Render width (px). @type {number} */
     width = 78;
+
+    /** Cache of preloaded images by path. @type {Object.<string,HTMLImageElement>} */
     imageCache = {};
+
+    /** Current animation frame index. @type {number} */
     currentImage = 0;
+
+    /** Horizontal movement speed (px/tick). @type {number} */
     speed = 0.3;
+
+    /** Facing flag for horizontal mirroring. @type {boolean} */
     otherDirection = false;
+
+    /** Current vertical velocity. @type {number} */
     speedY = 0;
+
+    /** Gravity/acceleration applied each tick. @type {number} */
     acceleration = 2.5;
+
+    /**
+     * Collision hitbox offsets (shrink/grow bounding box).
+     * @type {{top:number,left:number,right:number,bottom:number}}
+     */
     offset = {
         top: 0,
         left: 0,
         right: 0,
         bottom: 0
     };
+
+    /** Remaining health/energy (0–100). @type {number} */
     energy = 100;
+
+    /** Timestamp (ms) of the last hit. @type {number} */
     lastHit = 0;
+
+    /** Timestamp (ms) of the last throw. @type {number} */
     lastThrow = 0;
+
+    /** Current ammo count. @type {number} */
     ammo = 0;
+
+    /** Whether the entity is currently attacking. @type {boolean} */
     attack = false;
+
+    /** Whether the entity is currently moving. @type {boolean} */
     moving = false;
 
     /**
@@ -129,16 +168,12 @@ class MoveableObject extends DrawableObject {
             !mo.isDead();
     }
 
-    /**
-     * Moves the object to the right based on its current speed.
-     */
+    /** Moves the object to the right based on its current speed. */
     moveRight() {
         this.x += this.speed;
     }
 
-    /**
-     * Moves the object to the left based on its current speed.
-     */
+    /** Moves the object to the left based on its current speed. */
     moveLeft() {
         this.x -= this.speed;
     }
