@@ -44,7 +44,8 @@ class Endboss extends MoveableObject {
 
     IMAGES_HURT = [
         './img/4_enemie_boss_neuron/4_hurt/G1.png',
-        './img/4_enemie_boss_neuron/4_hurt/G2.png'
+        './img/4_enemie_boss_neuron/4_hurt/G2.png',
+        './img/4_enemie_boss_neuron/4_hurt/G3.png'
     ];
 
     IMAGES_ATTACK = [
